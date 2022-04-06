@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Online</title>
+    <!--css style-->
+    <link rel="stylesheet" type="text/css" href="css/calc_style.css">
+    <!--Font awasome-->
+    <script src="https://kit.fontawesome.com/3797641237.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="corpo_calc">
+
+        <header id="barra_calc">
+            <div class="dropdownOP">
+                <button onclick="DropDown()" class="btnDD">
+                    <i class="fa-solid fa-bars fa-2x"></i>
+                </button>
+                <div id="menuDD" class="contentDD">
+                    <h3>Calculadora</h3>
+                    <a href="#">
+                        <i class="fa-solid fa-calculator"></i>Básica</a>
+                    <a href="#">
+                        <i class="fa-solid fa-code"></i>Binária</a>
+                    <h3>Conversões</h3>
+                    <a href="#">
+                        <i class="fa-solid fa-coins"></i>Moeda</a>
+                </div>
+            </div>
+            <button onclick="DDHistory()" class="btn-h">
+                <i class="fa-solid fa-clock-rotate-left fa-2x"></i>
+            </button>
+        </header>
+
+        <div id="visor_calc">
+            <input id="visor_op" type="text" placeholder=" " disabled>
+            <input class="inicio" id="value_display" type="text" value="0" disabled>
+        </div>
+
+        <section id="mem_calc">
+            <button type="button">MC</button>
+            <button type="button">MR</button>
+            <button type="button">M+</button>
+            <button type="button">M-</button>
+            <button type="button">MS</button>
+            <button type="button">MEM</button>
+        </section>
+        
+        <section id="botoes_calc">
+
+            <button class="btn" type="button">%</button>
+            <button onclick="action('acao','ce')" class="btn" type="button">CE</button>
+            <button onclick="action('acao','c')" class="btn" type="button">C</button>
+            <button onclick="action('acao','del')" class="btn" type="button">
+                <i class="fa-solid fa-delete-left"></i>
+            </button>
+
+            <button class="btn" type="button">1<em>/</em>x</button>
+            <button onclick="action('acao','sqr')" class="btn" type="button">x²</button>
+            <button onclick="action('acao','√')" class="btn" type="button">²√</button>
+            <button onclick="action('acao','/')" class="btn" type="button">÷</button>
+
+
+            <button onclick="action('valor',7)" class="btn-value" type="button">7</button>
+            <button onclick="action('valor',8)" class="btn-value" type="button">8</button>
+            <button onclick="action('valor',9)" class="btn-value" type="button">9</button>
+            <button onclick="action('acao','*')" class="btn" type="button">x</button>
+
+            <button onclick="action('valor',4)" class="btn-value" type="button">4</button>
+            <button onclick="action('valor',5)" class="btn-value" type="button">5</button>
+            <button onclick="action('valor',6)" class="btn-value" type="button">6</button>
+            <button onclick="action('acao','-')" class="btn" type="button">-</button>
+
+            <button onclick="action('valor',1)" class="btn-value" type="button">1</button>
+            <button onclick="action('valor',2)" class="btn-value" type="button">2</button>
+            <button onclick="action('valor',3)" class="btn-value" type="button">3</button>
+            <button onclick="action('acao','+')" class="btn" type="button">+</button>
+
+            <button onclick="action('acao','neg')" class="btn" type="button">neg</button>
+            <button onclick="action('valor',0)" class="btn-value" type="button">0</button>
+            <button onclick="action('acao','.')" class="btn" type="button">.</button>
+            <button onclick="action('acao','=')" class="btn" type="button">=</button>
+        </section>
+
+        <div class="dropdownHT">
+            <div id="historico" class="historicoContainer">
+                <article id="historicoContent"></article>
+                <button id="btn-t" class="btn-trash">
+                    <i class="fa-solid fa-trash-can fa-2x"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calc_script.js"></script>
+</body>
+
+
+</html>
