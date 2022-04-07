@@ -20,7 +20,7 @@ function action(type, val) {
                 case 'ce':
                     valor.setAttribute("value", '0')
                     break
-                case 'del'://coisas a mexer aqui tambem
+                case 'del':
                     if (valor_init.length > 1) {
                         if (isNaN(valor.getAttribute("value"))) {
                             valor.setAttribute("value", valor.getAttribute("value").split(/[^0-9]/).join(''))
@@ -37,18 +37,28 @@ function action(type, val) {
                     operationExec(valor, expressao)
                     setState('reiniciar', valor)
                     break
-                case '√':
+                case 'sqrt':
                     expressao.setAttribute("value", `√(${valor_init})`)
                     operationExec(valor, expressao)
-                    setState('sqr_ops', valor)
+                    setState('reiniciar', valor)
                     break
                 case 'sqr':
                     expressao.setAttribute("value", `sqr(${valor_init})`)
                     operationExec(valor, expressao)
-                    setState('sqr_ops', valor)
+                    setState('reiniciar', valor)
+                    break
+                case 'ptg':
+                    percentageSet(valor, expressao)
+                    operationExec(valor, expressao)
+                    setState('reiniciar', valor)
+                    break
+                case '1/':
+                    expressao.setAttribute("value", `1/(${valor_init})`)
+                    operationExec(valor, expressao)
+                    setState('reiniciar', valor)
                     break
                 case '.':
-                    if (!isNaN(valor_init) && valor_init.match(/[.]/)==null) {
+                    if (!isNaN(valor_init) && valor_init.match(/[.]/) == null) {
                         valor.setAttribute("value", `${parseFloat(valor_init)}.`)
                     }
                     break
@@ -80,15 +90,11 @@ function setState(estado, valor) {
         case 'process':
             valor.classList.toggle("process")
             break
-        case 'sqr_ops':
-            valor.classList.toggle("sqr_ops")
-            break
     }
 }
 
-//tres possibilidades: -1(reiniciar), 0(inicio), 1(process)
 function setValue(valor, valor_init, expressao, val) {
-    switch(valor.className){
+    switch (valor.className) {
         case 'reiniciar':
             valor.setAttribute("value", val)
             expressao.setAttribute("value", '')
@@ -104,19 +110,15 @@ function setValue(valor, valor_init, expressao, val) {
 //refatorar depois
 function concatOperations(val, valor, valor_init, expressao, expressao_init) {
     if (expressao_init && !valor.classList.contains('reiniciar')) {
-        if(valor.classList.contains('sqr_ops')){
-            expressao.setAttribute("value", expressao_init + val)
-        }else{
-            expressao.setAttribute("value", expressao_init + valor_init + val)
-        }
-    }else{
+        expressao.setAttribute("value", expressao_init + valor_init + val)
+    } else {
         expressao.setAttribute("value", valor_init + val)
     }
 }
 //refatorar depois
 function concatEqual(valor, valor_init, expressao, expressao_init) {
     if (expressao_init) {
-        if (!valor.classList.contains('reiniciar')&&!valor.classList.contains('sqr_ops')) {
+        if (!valor.classList.contains('reiniciar')) {
             expressao.setAttribute("value", expressao_init + valor_init)
         } else {
             equalSequence(expressao, valor)
@@ -143,25 +145,41 @@ function operationExec(valor, expressao) {
     if (expressao.getAttribute("value").search("negate") != -1) {
         subStr = subStr.replace("negate", "-")
     }
-    valor.setAttribute("value", eval(subStr))
+    valor.setAttribute("value", +eval(subStr).toFixed(2))
     writeHistorical(valor, expressao)
 }
 
-function writeHistorical(valor,expressao){
-    let op= document.createElement('a')
-    op.innerHTML= `${expressao.getAttribute("value")} = ${valor.getAttribute("value")}`
-    op.onclick= ()=>{
-        let subStr= op.innerHTML
-        valor.setAttribute("value", subStr.slice(subStr.indexOf('=')+1,subStr.length))
-        expressao.setAttribute("value", subStr.slice(0,subStr.indexOf('=')-1))
+function writeHistorical(valor, expressao) {
+    let operacao = document.createElement('a')
+    operacao.innerHTML = `${expressao.getAttribute("value")} = ${valor.getAttribute("value")}`
+    operacao.onclick = () => {
+        let subStr = operacao.innerHTML
+        valor.setAttribute("value", subStr.slice(subStr.indexOf('=') + 1, subStr.length))
+        expressao.setAttribute("value", subStr.slice(0, subStr.indexOf('=') - 1))
     }
-    document.getElementById("historicoContent").appendChild(op)
+    if (document.getElementById("historicoContent").childElementCount > 0) {
+        document.getElementById("historicoContent").prepend(operacao)
+    } else {
+        document.getElementById("historicoContent").appendChild(operacao)
+    }
 }
 
-document.getElementById("btn-t").onclick =()=>{
+document.getElementById("btn-t").onclick = () => {
     document.getElementById("historicoContent").replaceChildren()
 }
-//operacoes de manipulacao na memoria
+
+function percentageSet(valor, expressao) {
+    let expressao_v = expressao.getAttribute("value")
+    let valor_v = valor.getAttribute("value")
+    if (expressao_v&&!valor.classList.contains('reiniciar')) {
+        let last_s = expressao_v.slice(-1)
+        if (last_s != '+') {
+            expressao.setAttribute("value", expressao_v + (valor_v/100))
+        } else {
+            expressao.setAttribute("value", expressao_v + (valor_v/2))
+        }
+    }
+}
 
 function powMask(expressao) {
     let elements = breakExpression(expressao)
@@ -195,7 +213,7 @@ function breakSinalExpression(expressao) {
     let sinal_array = []
     for (i in exp_array) {
         if (exp_array[i]) {
-            if (i== 0) {
+            if (i == 0) {
                 sinal_array.push(exp_array[i])
             } else {
                 sinal_array.push('number')
@@ -224,15 +242,14 @@ window.onclick = function (event) {
     }
 }
 //FUNCOES DROPDOWN HISTORICO DE OPERACOES
-function DDHistory(){
+function DDHistory() {
     document.getElementById("historico").classList.toggle("showH")
 }
-
+/*Teste
+-------------*/
 //SETANDO DIMENSOES DO DROPDOWN MENU COM BASE NO CONTAINER PRINCIPAL
 function initDD() {
     let height = ((92 / 100) * document.getElementById("corpo_calc").clientHeight)
-    //let width = (50 / 100) * document.getElementById("corpo_calc").clientWidth
     document.getElementById("menuDD").style.height = height + 'px'
-    //document.getElementById("menuDD").style.width = width + 'px'
 }
 initDD()

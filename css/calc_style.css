@@ -147,9 +147,6 @@ button:active, a:active{
     display: flex;
     flex-direction: column;
 }
-#visor_calc>*{
-    pointer-events: none;
-}
 #visor_op, #value_display{
     align-self: stretch;
     text-align: end;
@@ -159,14 +156,15 @@ button:active, a:active{
 #visor_op{
     height: 40%;
     color: rgb(189, 189, 189);
-    font:  2.1vw 'Open Sans', sans-serif;
+    font: 1.8em 'Open Sans', sans-serif;
     text-overflow: ellipsis;
 }
 #value_display{
     height: 60%;
     margin-top: 5px;
     color: white;
-    font:   3.4vw 'Open Sans', sans-serif;
+    font: 3em 'Open Sans', sans-serif;
+    text-overflow: ellipsis;
     transform: scaleY(1.1);
 }
 /*FORMATACAO CAMPO OP MEMORIA*/

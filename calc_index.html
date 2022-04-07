@@ -37,10 +37,10 @@
             </button>
         </header>
 
-        <div id="visor_calc">
+        <section id="visor_calc">
             <input id="visor_op" type="text" placeholder=" " disabled>
             <input class="inicio" id="value_display" type="text" value="0" disabled>
-        </div>
+        </section>
 
         <section id="mem_calc">
             <button type="button">MC</button>
@@ -53,16 +53,16 @@
         
         <section id="botoes_calc">
 
-            <button class="btn" type="button">%</button>
+            <button onclick="action('acao','ptg')" class="btn" type="button">%</button>
             <button onclick="action('acao','ce')" class="btn" type="button">CE</button>
             <button onclick="action('acao','c')" class="btn" type="button">C</button>
             <button onclick="action('acao','del')" class="btn" type="button">
                 <i class="fa-solid fa-delete-left"></i>
             </button>
 
-            <button class="btn" type="button">1<em>/</em>x</button>
+            <button onclick="action('acao','1/')" class="btn" type="button">1<em>/</em>x</button>
             <button onclick="action('acao','sqr')" class="btn" type="button">x²</button>
-            <button onclick="action('acao','√')" class="btn" type="button">²√</button>
+            <button onclick="action('acao','sqrt')" class="btn" type="button">²√</button>
             <button onclick="action('acao','/')" class="btn" type="button">÷</button>
 
 
@@ -87,16 +87,15 @@
             <button onclick="action('acao','=')" class="btn" type="button">=</button>
         </section>
 
-        <div class="dropdownHT">
+        <footer class="dropdownHT">
             <div id="historico" class="historicoContainer">
                 <article id="historicoContent"></article>
                 <button id="btn-t" class="btn-trash">
                     <i class="fa-solid fa-trash-can fa-2x"></i>
                 </button>
             </div>
-        </div>
+        </section>
     </div>
-
     <script src="js/calc_script.js"></script>
 </body>
 
