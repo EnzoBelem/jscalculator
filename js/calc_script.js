@@ -1,161 +1,206 @@
-function action(type, val) {
+/*possiveis alteracoes*/
+let Calculadora = function () {
+    var valor = document.getElementById("value_display")
+    var formated_expressao = document.getElementById("visor_op")
+    var internal_expressao = []
+    var memoria = []
+    var estado = 'inicial'
 
-    let valor = document.getElementById("value_display")
-    let valor_init = valor.getAttribute("value")
-    let expressao = document.getElementById("visor_op")
-    let expressao_init = expressao.getAttribute("value")
+    //manipulacoes na memoria
+    this.memClear= ()=>{
+        memoria= []
+    }
+    this.memRecall= ()=>{
+        this.clear()
+        valor.setAttribute("value", memoria.concat().pop())
+    }
+    this.memSave= ()=>{
+        memoria.push(this.getValor())
+    }
+    this.memAdd= ()=>{
+        memoria[memoria.length-1]+= +this.getValor().toFixed(2)
+    }
+    this.memSub= ()=>{
+        memoria[memoria.length-1]-= +this.getValor().toFixed(2)
+    }
+    //execucao de operacoes
+    this.addToValor = (val) => {
+        switch (estado) {
+            case 'reinicio':
+                valor.setAttribute("value", val)
+                formated_expressao.setAttribute("value", '')
+                internal_expressao = []
+                break
+            case 'inicial':
+                valor.setAttribute("value", val)
+                break
+            case 'setando':
+                valor.setAttribute("value", this.getValor() + val)
+                break
+        }
+        estado = 'setando'
+    }
 
+    this.expressionConcat= (val_output, val_intern)=>{
+        if(this.getFormatedExpressao() && estado!='reinicio'){
+            formated_expressao.setAttribute("value", this.getFormatedExpressao() + val_output)
+        }else{
+            formated_expressao.setAttribute("value", val_output)
+        }
+        internal_expressao.push(val_intern)
+        estado= 'inicial'
+    }
+
+    this.percentageSet= ()=>{
+        if(this.getFormatedExpressao() && estado!='reinicio'){
+            if(internal_expressao.concat().pop().includes("+")){
+                this.expressionConcat(this.getValor()/2, this.getValor()/2)
+            }else{
+                this.expressionConcat(this.getValor()/100, this.getValor()/100)
+            }
+        }
+    }
+
+    this.negation= ()=>{
+        valor.setAttribute("value",-this.getValor())
+    }
+
+    this.floatingPoint= ()=>{
+        if(!isNaN(this.getValor()) && this.getValor().match(/[.]/)==null){
+            valor.setAttribute("value",`${this.getValor()}.`)
+        }
+    }
+
+    this.calculateExpression= ()=>{
+        valor.setAttribute("value", +eval(internal_expressao.join('')).toFixed(2))
+        internal_expressao= []
+        estado= 'reinicio'
+    }
+
+    this.equalConcat= ()=>{
+        if(this.getFormatedExpressao() && estado!='reinicio'){
+            formated_expressao.setAttribute("value", this.getFormatedExpressao() + this.getValor())
+        }else{
+            formated_expressao.setAttribute("value", this.getValor())
+        }
+        internal_expressao.push(this.getValor())
+    }
+
+    this.clear= ()=>{
+        valor.setAttribute("value", '0')
+        formated_expressao.setAttribute("value", '')
+        internal_expressao = []
+        estado = 'inicial'
+    }
+
+    this.clearEntry= ()=>{
+        valor.setAttribute("value", '0')
+        estado = 'inicial'
+    }
+
+    this.delete= ()=>{
+        if (this.getValor().length > 1) {
+            if (isNaN(this.getValor())) {
+                valor.setAttribute("value", this.getValor().split(/[^0-9]/).join(''))
+            } else {
+                valor.setAttribute("value", this.getValor().slice(0,-1))
+            }
+            estado = 'setando'
+        } else {
+            this.clearEntry()
+        }
+    }
+
+    //getters
+    this.getValor = () => {
+        return valor.getAttribute("value")
+    }
+
+    this.getFormatedExpressao = () => {
+        return formated_expressao.getAttribute("value")
+    }
+}
+
+var calc = new Calculadora()
+
+function calc_btn(type, val) {
     switch (type) {
         case 'valor':
-            setValue(valor, valor_init, expressao, val)
-            setState('process', valor)
+            calc.addToValor(val)
             break
         case 'acao':
             switch (val) {
                 case 'c':
-                    valor.setAttribute("value", '0')
-                    expressao.setAttribute("value", '')
-                    setState('inicio', valor)
+                    calc.clear()
                     break
                 case 'ce':
-                    valor.setAttribute("value", '0')
+                    calc.clearEntry()
                     break
                 case 'del':
-                    if (valor_init.length > 1) {
-                        if (isNaN(valor.getAttribute("value"))) {
-                            valor.setAttribute("value", valor.getAttribute("value").split(/[^0-9]/).join(''))
-                        } else {
-                            valor.setAttribute("value", valor_init.slice(0, valor_init.length - 1))
-                        }
-                    } else {
-                        valor.setAttribute("value", '0')
-                    }
-                    setState('inicio', valor)
+                    calc.delete()
                     break
                 case '=':
-                    concatEqual(valor, valor_init, expressao, expressao_init)
-                    operationExec(valor, expressao)
-                    setState('reiniciar', valor)
+                    calc.equalConcat()
+                    calc.calculateExpression()
+                    writeHistorical(calc.getValor(), calc.getFormatedExpressao())
                     break
                 case 'sqrt':
-                    expressao.setAttribute("value", `√(${valor_init})`)
-                    operationExec(valor, expressao)
-                    setState('reiniciar', valor)
+                    calc.expressionConcat(`√(${calc.getValor()})`,`Math.sqrt(${calc.getValor()})`)
+                    calc.calculateExpression()
                     break
                 case 'sqr':
-                    expressao.setAttribute("value", `sqr(${valor_init})`)
-                    operationExec(valor, expressao)
-                    setState('reiniciar', valor)
+                    calc.expressionConcat(`(${calc.getValor()})²`,`Math.pow(${calc.getValor()},2)`)
+                    calc.calculateExpression()
                     break
                 case 'ptg':
-                    percentageSet(valor, expressao)
-                    operationExec(valor, expressao)
-                    setState('reiniciar', valor)
+                    calc.percentageSet()
+                    calc.calculateExpression()
                     break
                 case '1/':
-                    expressao.setAttribute("value", `1/(${valor_init})`)
-                    operationExec(valor, expressao)
-                    setState('reiniciar', valor)
+                    calc.expressionConcat(`1/(${calc.getValor()})`,`1/(${calc.getValor()})`)
+                    calc.calculateExpression()
                     break
                 case '.':
-                    if (!isNaN(valor_init) && valor_init.match(/[.]/) == null) {
-                        valor.setAttribute("value", `${parseFloat(valor_init)}.`)
-                    }
+                    calc.floatingPoint()
                     break
                 case 'neg':
-                    if (valor_init.search("negate") == -1) {
-                        valor.setAttribute("value", `negate(${valor_init})`)
-                    } else {
-                        valor.setAttribute("value", `${valor_init.split(/[^0-9]/).join('')}`)
-                    }
+                    calc.negation()
                     break
-                default://representa todas as demais operações matematicas 
-                    concatOperations(val, valor, valor_init, expressao, expressao_init)
-                    setState('inicio', valor)
+                default:
+                    calc.expressionConcat(calc.getValor()+val, calc.getValor()+val)
                     break
             }
             break
     }
 }
-
-function setState(estado, valor) {
-    valor.className = ''
-    switch (estado) {
-        case 'reiniciar':
-            valor.classList.toggle("reiniciar")
+//MANIPULACOES NA MEMORIA
+function mem_act(memory_op){
+    switch(memory_op){
+        case 'mc':
+            calc.memClear()
             break
-        case 'inicio':
-            valor.classList.toggle("inicio")
+        case 'mr':
+            calc.memRecall()
             break
-        case 'process':
-            valor.classList.toggle("process")
+        case 'm+':
+            calc.memAdd()
             break
-    }
-}
-
-function setValue(valor, valor_init, expressao, val) {
-    switch (valor.className) {
-        case 'reiniciar':
-            valor.setAttribute("value", val)
-            expressao.setAttribute("value", '')
+        case 'm-':
+            calc.memSub()
             break
-        case 'inicio':
-            valor.setAttribute("value", val)
-            break
-        case 'process':
-            valor.setAttribute("value", valor_init + val)
+        case 'ms':
+            calc.memSave()
             break
     }
 }
-//refatorar depois
-function concatOperations(val, valor, valor_init, expressao, expressao_init) {
-    if (expressao_init && !valor.classList.contains('reiniciar')) {
-        expressao.setAttribute("value", expressao_init + valor_init + val)
-    } else {
-        expressao.setAttribute("value", valor_init + val)
-    }
-}
-//refatorar depois
-function concatEqual(valor, valor_init, expressao, expressao_init) {
-    if (expressao_init) {
-        if (!valor.classList.contains('reiniciar')) {
-            expressao.setAttribute("value", expressao_init + valor_init)
-        } else {
-            equalSequence(expressao, valor)
-        }
-    } else {
-        expressao.setAttribute("value", valor_init)
-    }
-}
-
-function equalSequence(expressao, valor) {
-    let subStr = breakExpression(expressao)
-    let replaced = expressao.getAttribute("value").replace(subStr[0], valor.getAttribute("value"))
-    expressao.setAttribute("value", replaced)
-}
-
-function operationExec(valor, expressao) {
-    let subStr = expressao.getAttribute("value")
-    if (expressao.getAttribute("value").search("sqr") != -1) {
-        subStr = powMask(expressao)
-    }
-    if (expressao.getAttribute("value").search("√") != -1) {
-        subStr = subStr.replace("√", "Math.sqrt")
-    }
-    if (expressao.getAttribute("value").search("negate") != -1) {
-        subStr = subStr.replace("negate", "-")
-    }
-    valor.setAttribute("value", +eval(subStr).toFixed(2))
-    writeHistorical(valor, expressao)
-}
-
+//HISTORICO DE OPERACOES
 function writeHistorical(valor, expressao) {
     let operacao = document.createElement('a')
-    operacao.innerHTML = `${expressao.getAttribute("value")} = ${valor.getAttribute("value")}`
+    operacao.innerHTML = `${expressao} = ${valor}`
     operacao.onclick = () => {
         let subStr = operacao.innerHTML
-        valor.setAttribute("value", subStr.slice(subStr.indexOf('=') + 1, subStr.length))
-        expressao.setAttribute("value", subStr.slice(0, subStr.indexOf('=') - 1))
+        document.getElementById("value_display").setAttribute("value", subStr.slice(subStr.indexOf('=') + 1, subStr.length))
+        document.getElementById("visor_op").setAttribute("value", subStr.slice(0, subStr.indexOf('=') - 1))
     }
     if (document.getElementById("historicoContent").childElementCount > 0) {
         document.getElementById("historicoContent").prepend(operacao)
@@ -168,64 +213,7 @@ document.getElementById("btn-t").onclick = () => {
     document.getElementById("historicoContent").replaceChildren()
 }
 
-function percentageSet(valor, expressao) {
-    let expressao_v = expressao.getAttribute("value")
-    let valor_v = valor.getAttribute("value")
-    if (expressao_v&&!valor.classList.contains('reiniciar')) {
-        let last_s = expressao_v.slice(-1)
-        if (last_s != '+') {
-            expressao.setAttribute("value", expressao_v + (valor_v/100))
-        } else {
-            expressao.setAttribute("value", expressao_v + (valor_v/2))
-        }
-    }
-}
-
-function powMask(expressao) {
-    let elements = breakExpression(expressao)
-    let replaced = breakSinalExpression(expressao)
-    let e = 0
-    for (i in elements) {
-        if (elements[i].search("sqr") != -1) {
-            elements[i] = elements[i].replace("sqr", "Math.pow")
-            if (elements[i].search("negate") != -1) {
-                elements[i] = elements[i].slice(0, elements[i].length - 2) + ',2))'
-            } else {
-                elements[i] = elements[i].slice(0, elements[i].length - 1) + ',2)'
-            }
-        }
-    }
-    for (i in replaced) {
-        if (replaced[i] == 'number') {
-            replaced[i] = elements[e++]
-        }
-    }
-    return replaced.join('')
-}
-
-function breakExpression(expressao) {
-    let numbers_array = expressao.getAttribute("value").split(/[/*+-]/)
-    return numbers_array
-}
-
-function breakSinalExpression(expressao) {
-    let exp_array = expressao.getAttribute("value").split(/[^/*+-]/)
-    let sinal_array = []
-    for (i in exp_array) {
-        if (exp_array[i]) {
-            if (i == 0) {
-                sinal_array.push(exp_array[i])
-            } else {
-                sinal_array.push('number')
-                sinal_array.push(exp_array[i])
-            }
-        }
-    }
-    sinal_array.push('number')
-    return sinal_array
-}
-
-//FUNCOES DO DROPDOWN MENU
+//DROPDOWN MENU
 function DropDown() {
     document.getElementById("menuDD").classList.toggle("show")
 }
@@ -241,13 +229,11 @@ window.onclick = function (event) {
         }
     }
 }
-//FUNCOES DROPDOWN HISTORICO DE OPERACOES
+//DROPDOWN HISTORICO
 function DDHistory() {
     document.getElementById("historico").classList.toggle("showH")
 }
-/*Teste
--------------*/
-//SETANDO DIMENSOES DO DROPDOWN MENU COM BASE NO CONTAINER PRINCIPAL
+//SETANDO DIMENSOES DO DROPDOWN MENU COM BASE NO CONTAINER PRINCIPAL - TESTE
 function initDD() {
     let height = ((92 / 100) * document.getElementById("corpo_calc").clientHeight)
     document.getElementById("menuDD").style.height = height + 'px'

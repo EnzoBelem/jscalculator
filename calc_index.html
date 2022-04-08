@@ -43,50 +43,50 @@
         </section>
 
         <section id="mem_calc">
-            <button type="button">MC</button>
-            <button type="button">MR</button>
-            <button type="button">M+</button>
-            <button type="button">M-</button>
-            <button type="button">MS</button>
+            <button onclick="mem_act('mc')" type="button">MC</button>
+            <button onclick="mem_act('mr')" type="button">MR</button>
+            <button onclick="mem_act('m+')" type="button">M+</button>
+            <button onclick="mem_act('m-')" type="button">M-</button>
+            <button onclick="mem_act('ms')" type="button">MS</button>
             <button type="button">MEM</button>
         </section>
         
         <section id="botoes_calc">
 
-            <button onclick="action('acao','ptg')" class="btn" type="button">%</button>
-            <button onclick="action('acao','ce')" class="btn" type="button">CE</button>
-            <button onclick="action('acao','c')" class="btn" type="button">C</button>
-            <button onclick="action('acao','del')" class="btn" type="button">
+            <button onclick="calc_btn('acao','ptg')" class="btn" type="button">%</button>
+            <button onclick="calc_btn('acao','ce')" class="btn" type="button">CE</button>
+            <button onclick="calc_btn('acao','c')" class="btn" type="button">C</button>
+            <button onclick="calc_btn('acao','del')" class="btn" type="button">
                 <i class="fa-solid fa-delete-left"></i>
             </button>
 
-            <button onclick="action('acao','1/')" class="btn" type="button">1<em>/</em>x</button>
-            <button onclick="action('acao','sqr')" class="btn" type="button">x²</button>
-            <button onclick="action('acao','sqrt')" class="btn" type="button">²√</button>
-            <button onclick="action('acao','/')" class="btn" type="button">÷</button>
+            <button onclick="calc_btn('acao','1/')" class="btn" type="button">1<em>/</em>x</button>
+            <button onclick="calc_btn('acao','sqr')" class="btn" type="button">x²</button>
+            <button onclick="calc_btn('acao','sqrt')" class="btn" type="button">²√</button>
+            <button onclick="calc_btn('acao','/')" class="btn" type="button">÷</button>
 
 
-            <button onclick="action('valor',7)" class="btn-value" type="button">7</button>
-            <button onclick="action('valor',8)" class="btn-value" type="button">8</button>
-            <button onclick="action('valor',9)" class="btn-value" type="button">9</button>
-            <button onclick="action('acao','*')" class="btn" type="button">x</button>
+            <button onclick="calc_btn('valor',7)" class="btn-value" type="button">7</button>
+            <button onclick="calc_btn('valor',8)" class="btn-value" type="button">8</button>
+            <button onclick="calc_btn('valor',9)" class="btn-value" type="button">9</button>
+            <button onclick="calc_btn('acao','*')" class="btn" type="button">x</button>
 
-            <button onclick="action('valor',4)" class="btn-value" type="button">4</button>
-            <button onclick="action('valor',5)" class="btn-value" type="button">5</button>
-            <button onclick="action('valor',6)" class="btn-value" type="button">6</button>
-            <button onclick="action('acao','-')" class="btn" type="button">-</button>
+            <button onclick="calc_btn('valor',4)" class="btn-value" type="button">4</button>
+            <button onclick="calc_btn('valor',5)" class="btn-value" type="button">5</button>
+            <button onclick="calc_btn('valor',6)" class="btn-value" type="button">6</button>
+            <button onclick="calc_btn('acao','-')" class="btn" type="button">-</button>
 
-            <button onclick="action('valor',1)" class="btn-value" type="button">1</button>
-            <button onclick="action('valor',2)" class="btn-value" type="button">2</button>
-            <button onclick="action('valor',3)" class="btn-value" type="button">3</button>
-            <button onclick="action('acao','+')" class="btn" type="button">+</button>
+            <button onclick="calc_btn('valor',1)" class="btn-value" type="button">1</button>
+            <button onclick="calc_btn('valor',2)" class="btn-value" type="button">2</button>
+            <button onclick="calc_btn('valor',3)" class="btn-value" type="button">3</button>
+            <button onclick="calc_btn('acao','+')" class="btn" type="button">+</button>
 
-            <button onclick="action('acao','neg')" class="btn" type="button">neg</button>
-            <button onclick="action('valor',0)" class="btn-value" type="button">0</button>
-            <button onclick="action('acao','.')" class="btn" type="button">.</button>
-            <button onclick="action('acao','=')" class="btn" type="button">=</button>
+            <button onclick="calc_btn('acao','neg')" class="btn" type="button">neg</button>
+            <button onclick="calc_btn('valor',0)" class="btn-value" type="button">0</button>
+            <button onclick="calc_btn('acao','.')" class="btn" type="button">.</button>
+            <button onclick="calc_btn('acao','=')" class="btn" type="button">=</button>
         </section>
-
+        
         <footer class="dropdownHT">
             <div id="historico" class="historicoContainer">
                 <article id="historicoContent"></article>
@@ -94,7 +94,7 @@
                     <i class="fa-solid fa-trash-can fa-2x"></i>
                 </button>
             </div>
-        </section>
+        </footer>
     </div>
     <script src="js/calc_script.js"></script>
 </body>
