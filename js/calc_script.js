@@ -10,18 +10,29 @@ let Calculadora = function () {
     this.memClear= ()=>{
         memoria= []
     }
+    this.memRemove= (index)=>{
+        memoria.splice(index, 1)
+    }
     this.memRecall= ()=>{
         this.clear()
-        valor.setAttribute("value", memoria.concat().pop())
+        if(memoria.length>0){
+            valor.setAttribute("value", memoria.concat().pop())
+        }
     }
     this.memSave= ()=>{
-        memoria.push(this.getValor())
+        memoria.push(+this.getValor())
     }
     this.memAdd= ()=>{
-        memoria[memoria.length-1]+= +this.getValor().toFixed(2)
+        memoria[memoria.length-1]+= +this.getValor()
+    }
+    this.memLocateAdd= (index)=>{
+        memoria[index]+= +this.getValor()
     }
     this.memSub= ()=>{
-        memoria[memoria.length-1]-= +this.getValor().toFixed(2)
+        memoria[memoria.length-1]-= +this.getValor()
+    }
+    this.memLocateSub= (index)=>{
+        memoria[index]-= +this.getValor()
     }
     //execucao de operacoes
     this.addToValor = (val) => {
@@ -119,6 +130,10 @@ let Calculadora = function () {
     this.getFormatedExpressao = () => {
         return formated_expressao.getAttribute("value")
     }
+
+    this.getMemory= ()=>{
+        return memoria
+    }
 }
 
 var calc = new Calculadora()
@@ -192,6 +207,7 @@ function mem_act(memory_op){
             calc.memSave()
             break
     }
+    writeMemory()
 }
 //HISTORICO DE OPERACOES
 function writeHistorical(valor, expressao) {
@@ -202,36 +218,84 @@ function writeHistorical(valor, expressao) {
         document.getElementById("value_display").setAttribute("value", subStr.slice(subStr.indexOf('=') + 1, subStr.length))
         document.getElementById("visor_op").setAttribute("value", subStr.slice(0, subStr.indexOf('=') - 1))
     }
-    if (document.getElementById("historicoContent").childElementCount > 0) {
-        document.getElementById("historicoContent").prepend(operacao)
+    if (document.getElementById("hist_content").childElementCount > 0) {
+        document.getElementById("hist_content").prepend(operacao)
     } else {
-        document.getElementById("historicoContent").appendChild(operacao)
+        document.getElementById("hist_content").appendChild(operacao)
     }
 }
 
 document.getElementById("btn-t").onclick = () => {
-    document.getElementById("historicoContent").replaceChildren()
+    document.getElementById("hist_content").replaceChildren()
 }
+//CAMPO MEMORIA
+function writeMemory(){
+    let valores= document.createDocumentFragment()
+    let mem= calc.getMemory()
 
+    for(i=mem.length-1;i>=0;i--){
+        let element= memoryElement(mem[i],i)
+        valores.appendChild(element)
+    }
+    document.getElementById("mem_content").replaceChildren(valores)
+}
+function memoryElement(val_m, index){
+    let element= document.createElement('div')
+    element.setAttribute("id", index)
+    let val_p= document.createElement('p')
+    val_p.classList.toggle("val-mem")
+    val_p.textContent= val_m
+    val_p.onclick=()=>{
+        document.getElementById("value_display").setAttribute("value", val_p.textContent)
+    }
+    let btn_body= document.createElement('div')
+    btn_body.classList.toggle("btn-body")
+    btn_body.append(memoryBtns.btnC(index),memoryBtns.btnA(index),memoryBtns.btnS(index))
+    element.append(val_p,btn_body)
+    return element
+}
+const memoryBtns= {
+    btnC: (index)=>{
+        let btn= document.createElement('button')
+        btn.classList.toggle("btn-mem")
+        btn.textContent= 'C'
+        btn.onclick= ()=>{
+            calc.memRemove(index)
+            document.getElementById(`${index}`).replaceChildren()
+        }
+        return btn
+    },
+    btnA: (index)=>{
+        let btn= document.createElement('button')
+        btn.classList.toggle("btn-mem")
+        btn.textContent= 'M+'
+        btn.onclick=()=>{
+            calc.memLocateAdd(index)
+            writeMemory()
+        }
+        return btn
+    },
+    btnS: (index)=>{
+        let btn= document.createElement('button')
+        btn.classList.toggle("btn-mem")
+        btn.textContent= 'M-'
+        btn.onclick=()=>{
+            calc.memLocateSub(index)
+            writeMemory()
+        }
+        return btn
+    }
+}
 //DROPDOWN MENU
 function DropDown() {
     document.getElementById("menuDD").classList.toggle("show")
 }
-window.onclick = function (event) {
-    if (!event.target.matches('.btnDD')) {
-        var dropdowns = document.getElementsByClassName("contentDD");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
-    }
-}
-//DROPDOWN HISTORICO
+//DROPDOWN FOOTER
 function DDHistory() {
-    document.getElementById("historico").classList.toggle("showH")
+    document.getElementById("historico").classList.toggle("showF")
+}
+function DDMemory() {
+    document.getElementById("memoria").classList.toggle("showF")
 }
 //SETANDO DIMENSOES DO DROPDOWN MENU COM BASE NO CONTAINER PRINCIPAL - TESTE
 function initDD() {

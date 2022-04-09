@@ -89,12 +89,12 @@ button:active, a:active{
     opacity: 1;
     visibility: visible;
 }
-/*DROPDOWN HISTORICO*/
-.dropdownHT{
+/*DROPDOWN IINFERIOR*/
+.dropdownFooter{
     position: relative;
     margin-left: -5px;
 }
-.historicoContainer{
+.Container{
     width: calc(100% - 5px);
     height: 100px;
     top: -100px;
@@ -109,10 +109,17 @@ button:active, a:active{
     display: flex;
     flex-direction: column;
 }
-.historicoContainer >*{
+.Container >*{
     padding: 15px;
 }
-#historicoContent{
+.showF{
+    opacity: 1;
+    visibility: visible; 
+    height: calc(75.3/100 * 700px - 20px);
+    top: calc((-1)*(75.3/100 * 700px - 15px));
+}
+/*DROPDOWN FOOTER CONTENT*/
+#hist_content, #mem_content{
     width: 90%;
     height: 84%;
     margin-top: 5px;
@@ -122,7 +129,7 @@ button:active, a:active{
     overflow-y: auto;
     scrollbar-width: thin;
 }
-#historicoContent > a{
+#hist_content > a{
     padding: 10px;
     cursor: pointer;
     font-size: 1.5em;
@@ -134,11 +141,35 @@ button:active, a:active{
     margin-right: 5px;
     align-self: flex-end;
 }
-.showH{
-    opacity: 1;
-    visibility: visible; 
-    height: calc(75.3/100 * 700px - 20px);
-    top: calc((-1)*(75.3/100 * 700px - 15px));
+/*OPERACOES NA MEMORIA*/
+#mem_content > div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+#mem_content > div:hover{
+    background: rgb(78, 78, 78);
+}
+.val-mem{
+    margin-right: 5px;
+    cursor: pointer;
+    width: min-content;
+    font-size: 2.4em;
+}
+.btn-body{
+    display: flex;
+}
+.btn-mem{
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    font:1em 'Open Sans', sans-serif;
+    font-weight: 600;
+    background: rgb(32, 32, 32);
+    z-index: 2;
+}
+.btn-mem:hover{
+    color: black;
 }
 /*FORMATACAO VISOR CALCULADORA*/
 #visor_calc{

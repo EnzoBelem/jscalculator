@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -48,9 +47,9 @@
             <button onclick="mem_act('m+')" type="button">M+</button>
             <button onclick="mem_act('m-')" type="button">M-</button>
             <button onclick="mem_act('ms')" type="button">MS</button>
-            <button type="button">MEM</button>
+            <button onclick="DDMemory()" type="button">MEM</button>
         </section>
-        
+
         <section id="botoes_calc">
 
             <button onclick="calc_btn('acao','ptg')" class="btn" type="button">%</button>
@@ -86,18 +85,24 @@
             <button onclick="calc_btn('acao','.')" class="btn" type="button">.</button>
             <button onclick="calc_btn('acao','=')" class="btn" type="button">=</button>
         </section>
-        
-        <footer class="dropdownHT">
-            <div id="historico" class="historicoContainer">
-                <article id="historicoContent"></article>
-                <button id="btn-t" class="btn-trash">
-                    <i class="fa-solid fa-trash-can fa-2x"></i>
-                </button>
+
+        <footer class="dropdownFooter">
+            <div>
+                <div id="historico" class="Container">
+                    <article id="hist_content"></article>
+                    <button id="btn-t" class="btn-trash">
+                        <i class="fa-solid fa-trash-can fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div id="memoria" class="Container">
+                    <article id="mem_content"></article>
+                </div>
             </div>
         </footer>
     </div>
     <script src="js/calc_script.js"></script>
 </body>
-
 
 </html>
