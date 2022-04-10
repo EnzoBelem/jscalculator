@@ -188,6 +188,7 @@ function calc_btn(type, val) {
             break
     }
 }
+
 //MANIPULACOES NA MEMORIA
 function mem_act(memory_op){
     switch(memory_op){
@@ -209,6 +210,7 @@ function mem_act(memory_op){
     }
     writeMemory()
 }
+
 //HISTORICO DE OPERACOES
 function writeHistorical(valor, expressao) {
     let operacao = document.createElement('a')
@@ -225,9 +227,10 @@ function writeHistorical(valor, expressao) {
     }
 }
 
-document.getElementById("btn-t").onclick = () => {
+function LimparHistorico(){
     document.getElementById("hist_content").replaceChildren()
 }
+
 //CAMPO MEMORIA
 function writeMemory(){
     let valores= document.createDocumentFragment()
@@ -246,6 +249,7 @@ function memoryElement(val_m, index){
     val_p.classList.toggle("val-mem")
     val_p.textContent= val_m
     val_p.onclick=()=>{
+        calc.clear()
         document.getElementById("value_display").setAttribute("value", val_p.textContent)
     }
     let btn_body= document.createElement('div')
@@ -259,6 +263,7 @@ const memoryBtns= {
         let btn= document.createElement('button')
         btn.classList.toggle("btn-mem")
         btn.textContent= 'C'
+        btn.title= ("Limpar da memória")
         btn.onclick= ()=>{
             calc.memRemove(index)
             document.getElementById(`${index}`).replaceChildren()
@@ -269,6 +274,7 @@ const memoryBtns= {
         let btn= document.createElement('button')
         btn.classList.toggle("btn-mem")
         btn.textContent= 'M+'
+        btn.title= ("Somar da memória")
         btn.onclick=()=>{
             calc.memLocateAdd(index)
             writeMemory()
@@ -279,6 +285,7 @@ const memoryBtns= {
         let btn= document.createElement('button')
         btn.classList.toggle("btn-mem")
         btn.textContent= 'M-'
+        btn.title= ("Subtrair da memória")
         btn.onclick=()=>{
             calc.memLocateSub(index)
             writeMemory()
@@ -286,9 +293,13 @@ const memoryBtns= {
         return btn
     }
 }
+
 //DROPDOWN MENU
 function DropDown() {
     document.getElementById("menuDD").classList.toggle("show")
+}
+function DropDownAbout() {
+    document.getElementById("aboutDD").classList.toggle("showA")
 }
 //DROPDOWN FOOTER
 function DDHistory() {
@@ -297,9 +308,3 @@ function DDHistory() {
 function DDMemory() {
     document.getElementById("memoria").classList.toggle("showF")
 }
-//SETANDO DIMENSOES DO DROPDOWN MENU COM BASE NO CONTAINER PRINCIPAL - TESTE
-function initDD() {
-    let height = ((92 / 100) * document.getElementById("corpo_calc").clientHeight)
-    document.getElementById("menuDD").style.height = height + 'px'
-}
-initDD()
