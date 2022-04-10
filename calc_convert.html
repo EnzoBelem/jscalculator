@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Online</title>
+    <title>Calculadora Online-Conservões</title>
     <!--css style-->
     <link rel="stylesheet" type="text/css" href="css/calc_style.css">
     <!--Font awasome-->
@@ -14,7 +14,6 @@
 
 <body>
     <div id="corpo_calc">
-
         <header id="barra_calc">
             <div class="dropdownOP">
                 <button title="Menu" onclick="DropDown()" class="btnDD">
@@ -22,7 +21,7 @@
                 </button>
                 <div id="menuDD" class="contentDD">
                     <h3>Calculadora</h3>
-                    <a href="#">
+                    <a href="calc_index.html">
                         <i class="fa-solid fa-calculator"></i>Básica</a>
                     <a href="#">
                         <i class="fa-solid fa-flask"></i>Científica</a>
@@ -48,75 +47,39 @@
                     </div>
                 </div>
             </div>
-            <button title="Exibir histórico" onclick="DDHistory()" class="btn-h">
-                <i class="fa-solid fa-clock-rotate-left fa-2x"></i>
-            </button>
         </header>
-        <section class="visor_calc">
-            <input class="visor_op" id="visor_op" type="text" placeholder="" disabled>
+
+        <section class="visor_calc_convert">
             <input class="value_op" id="value_display" type="text" value="0" disabled>
+            <input type="select" name="" id="">
+            <input class="visor_op" id="visor_op" type="text" placeholder="" disabled>
+            <input type="select" name="" id="">
         </section>
 
-        <section id="mem_calc">
-            <button title="Limpar a memória" onclick="mem_act('mc')" type="button">MC</button>
-            <button title="Rechamada da memória" onclick="mem_act('mr')" type="button">MR</button>
-            <button title="Somar a memória" onclick="mem_act('m+')" type="button">M+</button>
-            <button title="Subtrair da memória" onclick="mem_act('m-')" type="button">M-</button>
-            <button title="Salvar na memória" onclick="mem_act('ms')" type="button">MS</button>
-            <button title="Exibir memória" onclick="DDMemory()" type="button">MEM</button>
-        </section>
-
-        <section class="botoes_calc">
-
-            <button onclick="calc_btn('acao','ptg')" class="btn" type="button">%</button>
-            <button onclick="calc_btn('acao','ce')" class="btn" type="button">CE</button>
-            <button onclick="calc_btn('acao','c')" class="btn" type="button">C</button>
-            <button onclick="calc_btn('acao','del')" class="btn" type="button">
-                <i class="fa-solid fa-delete-left"></i>
-            </button>
-
-            <button onclick="calc_btn('acao','1/')" class="btn" type="button">1<em>/</em>x</button>
-            <button onclick="calc_btn('acao','sqr')" class="btn" type="button">x²</button>
-            <button onclick="calc_btn('acao','sqrt')" class="btn" type="button">²√</button>
-            <button onclick="calc_btn('acao','/')" class="btn" type="button">÷</button>
-
-
+        <section class="botoes_calc_convert">
             <button onclick="calc_btn('valor',7)" class="btn-value" type="button">7</button>
             <button onclick="calc_btn('valor',8)" class="btn-value" type="button">8</button>
             <button onclick="calc_btn('valor',9)" class="btn-value" type="button">9</button>
-            <button onclick="calc_btn('acao','*')" class="btn" type="button">x</button>
-
+            <button onclick="calc_btn('acao','del')" class="btn" type="button">
+                <i class="fa-solid fa-delete-left"></i>
+            </button>
+          
             <button onclick="calc_btn('valor',4)" class="btn-value" type="button">4</button>
             <button onclick="calc_btn('valor',5)" class="btn-value" type="button">5</button>
             <button onclick="calc_btn('valor',6)" class="btn-value" type="button">6</button>
-            <button onclick="calc_btn('acao','-')" class="btn" type="button">-</button>
+            <button onclick="calc_btn('acao','ce')" class="btn" type="button">CE</button>
 
             <button onclick="calc_btn('valor',1)" class="btn-value" type="button">1</button>
             <button onclick="calc_btn('valor',2)" class="btn-value" type="button">2</button>
             <button onclick="calc_btn('valor',3)" class="btn-value" type="button">3</button>
-            <button onclick="calc_btn('acao','+')" class="btn" type="button">+</button>
 
-            <button onclick="calc_btn('acao','neg')" class="btn" type="button">neg</button>
-            <button onclick="calc_btn('valor',0)" class="btn-value" type="button">0</button>
             <button onclick="calc_btn('acao','.')" class="btn" type="button">.</button>
+            <button class="btn-value" type="button"></button>
+            <button onclick="calc_btn('valor',0)" class="btn-value" type="button">0</button>
+            <button class="btn-value" type="button"></button>
             <button onclick="calc_btn('acao','=')" class="btn" type="button">=</button>
         </section>
 
-        <footer class="dropdownFooter">
-            <div>
-                <div id="historico" class="Container">
-                    <article id="hist_content"></article>
-                    <button title="Limpar histórico" id="btn-t" class="btn-trash" onclick="LimparHistorico()">
-                        <i class="fa-solid fa-trash-can fa-2x"></i>
-                    </button>
-                </div>
-            </div>
-            <div>
-                <div id="memoria" class="Container">
-                    <article id="mem_content"></article>
-                </div>
-            </div>
-        </footer>
     </div>
     <script src="js/calc_script.js"></script>
 </body>
