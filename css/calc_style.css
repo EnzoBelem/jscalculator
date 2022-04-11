@@ -249,13 +249,25 @@ button:active, a:active{
 }
 .visor_calc_convert{
     height: 30%;
-    margin: 10px;
+    margin: 5px 0 15px 10px;
 }
-.visor_op, .value_op{
+.visor_op, .value_op, .select_med{
     align-self: stretch;
     text-align: end;
     border: none;
     background: rgba(53, 53, 53, 0);
+}
+.visor_calc_convert .value_op,.visor_calc_convert .visor_op, .visor_calc_convert .select_med{
+    text-align: start;
+}
+.visor_calc_convert .value_op,.visor_calc_convert .visor_op {
+    height: auto;
+    margin: 5px 0 5px 0;
+    color: white;
+    font: 3em 'Open Sans', sans-serif;
+}
+.visor_calc_convert .value_op{
+    font-weight: 700;
 }
 .visor_op{
     height: 40%;
@@ -271,7 +283,12 @@ button:active, a:active{
     text-overflow: ellipsis;
     transform: scaleY(1.1);
 }
-
+.select_med{
+    align-self: baseline;
+    margin: 2px 0 2px 0;
+    color: rgb(223, 223, 223);
+    font: 1.1em 'Open Sans', sans-serif;
+}
 /*FORMATACAO DOS BOTOES DA CALCULADORA*/
 .botoes_calc, .botoes_calc_convert{
     width: calc(100%);
@@ -292,6 +309,9 @@ button:active, a:active{
 .btn{
     background: rgb(32, 32, 32);
 }
-.btn-value{
+.btn-value, .btn-value-d{
     background: rgb(17, 17, 17);
+}
+.btn-value-d{
+    pointer-events: none;
 }
