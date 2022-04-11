@@ -1,5 +1,5 @@
 /*possiveis alteracoes*/
-let Calculadora = function () {
+function CalculadoraF() {
     var valor = document.getElementById("value_display")
     var formated_expressao = document.getElementById("visor_op")
     var internal_expressao = []
@@ -8,6 +8,7 @@ let Calculadora = function () {
 
     //manipulacoes na memoria
     this.memClear= ()=>{
+        console.log('entrou')
         memoria= []
     }
     this.memRemove= (index)=>{
@@ -136,7 +137,7 @@ let Calculadora = function () {
     }
 }
 
-var calc = new Calculadora()
+var calc = new CalculadoraF()
 
 function calc_btn(type, val) {
     switch (type) {

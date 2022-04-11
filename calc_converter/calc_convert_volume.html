@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Online-Conservões</title>
     <!--css style-->
-    <link rel="stylesheet" type="text/css" href="css/calc_style.css">
+    <link rel="stylesheet" type="text/css" href="../css/calc_style.css">
     <!--Font awasome-->
     <script src="https://kit.fontawesome.com/3797641237.js" crossorigin="anonymous"></script>
 </head>
@@ -21,18 +21,18 @@
                 </button>
                 <div id="menuDD" class="contentDD">
                     <h3>Calculadora</h3>
-                    <a href="calc_index.html">
+                    <a href="../calc_calculator/calc_c_basic.html">
                         <i class="fa-solid fa-calculator"></i>Básica</a>
                     <a href="#">
                         <i class="fa-solid fa-flask"></i>Científica</a>
                     <a href="#">
                         <i class="fa-solid fa-code"></i>Binária</a>
                     <h3>Conversões</h3>
-                    <a href="#">
+                    <a href="calc_convert_money.html">
                         <i class="fa-solid fa-coins"></i>Moeda</a>
-                    <a href="#">
+                    <a href="">
                         <i class="fa-solid fa-cube"></i></i>Volume</a>
-                    <a href="calc_convert.html">
+                    <a href="calc_convert_lenght.html">
                         <i class="fa-solid fa-ruler"></i>Comprimento</a>
                     <div class="dropdownA">
                         <div id="aboutDD" class="sobreDD">
@@ -51,9 +51,25 @@
 
         <section class="visor_calc_convert">
             <input class="value_op" id="value_display" type="text" value="0" disabled>
-            <input type="select" name="" id="">
-            <input class="visor_op" id="visor_op" type="text" placeholder="" disabled>
-            <input type="select" name="" id="">
+            <select class="select_med" name="unidades de medida" id="medida_input">
+                <option value="mililitros">Mililitros</option>
+                <option value="centCubicos">Centímetros cúbicos</option>
+                <option value="litros">Litros</option>
+                <option value="metCubicos">Metros cúbicos</option>
+                <option value="polCubicos">Polegadas cúbicas</option>
+                <option value="pesCubicos">Pés cúbicos</option>
+                <option value="jarCubicos">Jardas cúbicas</option>
+            </select>
+            <input class="visor_op" id="visor_op" type="text" value="0" disabled>
+            <select class="select_med" name="unidades de medida" id="medida_input">
+                <option value="mililitros">Mililitros</option>
+                <option value="centCubicos">Centímetros cúbicos</option>
+                <option value="litros">Litros</option>
+                <option value="metCubicos">Metros cúbicos</option>
+                <option value="polCubicos">Polegadas cúbicas</option>
+                <option value="pesCubicos">Pés cúbicos</option>
+                <option value="jarCubicos">Jardas cúbicas</option>
+            </select>
         </section>
 
         <section class="botoes_calc_convert">
@@ -81,7 +97,7 @@
         </section>
 
     </div>
-    <script src="js/calc_script.js"></script>
+    <script src="../js/calc_script.js"></script>
 </body>
 
 </html>
