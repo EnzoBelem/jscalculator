@@ -154,140 +154,19 @@ function btn_valeus() {
     }
 }
 btn_valeus()
-function btn_basic_ops() {
-    let btn_op = document.querySelectorAll('[data-op]')
-    for (i = 0; i < btn_op.length; i++) {
-        btn_op[i].addEventListener("click", event => {
-            calc.expressionConcat(calc.getValor() + event.target.dataset.op, calc.getValor() + event.target.dataset.op)
-        })
-    }
-}
-btn_basic_ops()
+
 function btn_ops(operation) {
     const calc_operations = {
-        'c': () => { calc.clear() },
-        'ce': () => { calc.clearEntry() },
         'del': () => { calc.delete() },
-        'neg': () => { calc.negation() },
+        'ce': () => { calc.clearEntry() },
         '.': () => { calc.floatingPoint() },
-        'ptg': () => {
-            calc.percentageSet()
-            calc.calculateExpression()
-        },
-        'sqrt': () => {
-            calc.expressionConcat(`√(${calc.getValor()})`, `Math.sqrt(${calc.getValor()})`)
-            calc.calculateExpression()
-        },
-        'sqr': () => {
-            calc.expressionConcat(`(${calc.getValor()})²`, `Math.pow(${calc.getValor()},2)`)
-            calc.calculateExpression()
-        },
-        '1/': () => {
-            calc.expressionConcat(`1/(${calc.getValor()})`, `1/(${calc.getValor()})`)
-            calc.calculateExpression()
-        },
         '=': () => {
             calc.equalConcat()
             calc.calculateExpression()
-            writeHistorical(calc.getValor(), calc.getFormatedExpressao())
         }
     }
     let operacao = calc_operations[operation]
     operacao()
-}
-
-//MANIPULACOES NA MEMORIA
-function mem_act(mem_op) {
-    const mem_functions = {
-        'mc': () => { calc.memClear() },
-        'mr': () => { calc.memRecall() },
-        'm+': () => { calc.memAdd() },
-        'm-': () => { calc.memSub() },
-        'ms': () => { calc.memSave() }
-    }
-    let operacao = mem_functions[mem_op]
-    operacao()
-}
-
-//HISTORICO DE OPERACOES
-function writeHistorical(valor, expressao) {
-    let operacao = document.createElement('a')
-    operacao.innerHTML = `${expressao} = ${valor}`
-    operacao.onclick = () => {
-        let subStr = operacao.innerHTML
-        document.getElementById("value_display").setAttribute("value", subStr.slice(subStr.indexOf('=') + 1, subStr.length))
-        document.getElementById("visor_op").setAttribute("value", subStr.slice(0, subStr.indexOf('=') - 1))
-    }
-    if (document.getElementById("hist_content").childElementCount > 0) {
-        document.getElementById("hist_content").prepend(operacao)
-    } else {
-        document.getElementById("hist_content").appendChild(operacao)
-    }
-}
-
-function LimparHistorico() {
-    document.getElementById("hist_content").replaceChildren()
-}
-
-//CAMPO MEMORIA
-function writeMemory() {
-    let valores = document.createDocumentFragment()
-    let mem = calc.getMemory()
-
-    for (i = mem.length - 1; i >= 0; i--) {
-        let element = memoryElement(mem[i], i)
-        valores.appendChild(element)
-    }
-    document.getElementById("mem_content").replaceChildren(valores)
-}
-function memoryElement(val_m, index) {
-    let element = document.createElement('div')
-    element.setAttribute("id", index)
-    let val_p = document.createElement('p')
-    val_p.classList.toggle("val-mem")
-    val_p.textContent = val_m
-    val_p.onclick = () => {
-        calc.clear()
-        document.getElementById("value_display").setAttribute("value", val_p.textContent)
-    }
-    let btn_body = document.createElement('div')
-    btn_body.classList.toggle("btn-body")
-    btn_body.append(memoryBtns.btnC(index), memoryBtns.btnA(index), memoryBtns.btnS(index))
-    element.append(val_p, btn_body)
-    return element
-}
-const memoryBtns = {
-    btnC: (index) => {
-        let btn = document.createElement('button')
-        btn.classList.toggle("btn-mem")
-        btn.textContent = 'C'
-        btn.title = ("Limpar da memória")
-        btn.onclick = () => {
-            calc.memRemove(index)
-            document.getElementById(`${index}`).replaceChildren()
-        }
-        return btn
-    },
-    btnA: (index) => {
-        let btn = document.createElement('button')
-        btn.classList.toggle("btn-mem")
-        btn.textContent = 'M+'
-        btn.title = ("Somar da memória")
-        btn.onclick = () => {
-            calc.memLocateAdd(index)
-        }
-        return btn
-    },
-    btnS: (index) => {
-        let btn = document.createElement('button')
-        btn.classList.toggle("btn-mem")
-        btn.textContent = 'M-'
-        btn.title = ("Subtrair da memória")
-        btn.onclick = () => {
-            calc.memLocateSub(index)
-        }
-        return btn
-    }
 }
 
 //DROPDOWN MENU
@@ -296,11 +175,4 @@ function DropDown() {
 }
 function DropDownAbout() {
     document.getElementById("aboutDD").classList.toggle("showA")
-}
-//DROPDOWN FOOTER
-function DDHistory() {
-    document.getElementById("historico").classList.toggle("showF")
-}
-function DDMemory() {
-    document.getElementById("memoria").classList.toggle("showF")
 }

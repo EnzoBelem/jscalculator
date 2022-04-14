@@ -61,31 +61,31 @@
         </section>
 
         <section class="botoes_calc_convert">
-            <button onclick="calc_btn('valor',7)" class="btn-value" type="button">7</button>
-            <button onclick="calc_btn('valor',8)" class="btn-value" type="button">8</button>
-            <button onclick="calc_btn('valor',9)" class="btn-value" type="button">9</button>
-            <button onclick="calc_btn('acao','del')" class="btn" type="button">
+            <button data-btn="7" class="btn-value" type="button">7</button>
+            <button data-btn="8" class="btn-value" type="button">8</button>
+            <button data-btn="9" class="btn-value" type="button">9</button>
+            <button onclick="btn_ops('del')" class="btn" type="button">
                 <i class="fa-solid fa-delete-left"></i>
             </button>
-          
-            <button onclick="calc_btn('valor',4)" class="btn-value" type="button">4</button>
-            <button onclick="calc_btn('valor',5)" class="btn-value" type="button">5</button>
-            <button onclick="calc_btn('valor',6)" class="btn-value" type="button">6</button>
-            <button onclick="calc_btn('acao','ce')" class="btn" type="button">CE</button>
 
-            <button onclick="calc_btn('valor',1)" class="btn-value" type="button">1</button>
-            <button onclick="calc_btn('valor',2)" class="btn-value" type="button">2</button>
-            <button onclick="calc_btn('valor',3)" class="btn-value" type="button">3</button>
+            <button data-btn="4" class="btn-value" type="button">4</button>
+            <button data-btn="5" class="btn-value" type="button">5</button>
+            <button data-btn="6" class="btn-value" type="button">6</button>
+            <button onclick="btn_ops('ce')" class="btn" type="button">CE</button>
 
-            <button onclick="calc_btn('acao','.')" class="btn" type="button">.</button>
-            <button class="btn-value" type="button"></button>
-            <button onclick="calc_btn('valor',0)" class="btn-value" type="button">0</button>
-            <button class="btn-value" type="button"></button>
-            <button onclick="calc_btn('acao','=')" class="btn" type="button">=</button>
+            <button data-btn="1" class="btn-value" type="button">1</button>
+            <button data-btn="2" class="btn-value" type="button">2</button>
+            <button data-btn="3" class="btn-value" type="button">3</button>
+           
+            <button onclick="btn_ops('.')" class="btn" type="button">.</button>
+            <button class="btn-value-d" type="button"></button>
+            <button data-btn="0" class="btn-value" type="button">0</button>
+            <button class="btn-value-d" type="button"></button>
+            <button onclick="btn_ops('=')" class="btn" type="button">=</button>
         </section>
 
     </div>
-    <script src="../js/calc_script.js"></script>
+    <script src="../js/converter_script.js"></script>
 </body>
 
 </html>
