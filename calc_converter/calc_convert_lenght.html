@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/3797641237.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body data-medida="comprimento">
     <div id="corpo_calc">
         <header id="barra_calc">
             <div class="dropdownOP">
@@ -51,33 +51,9 @@
 
         <section class="visor_calc_convert">
             <input class="value_op" id="value_display" type="text" value="0" disabled>
-            <select class="select_med" name="unidades de medida" id="medida_input">
-                <option value="nanometros">Nanômetros</option>
-                <option value="microns">Mícrons</option>
-                <option value="milimetros">Milímetros</option>
-                <option value="centimetros">Centímetros</option>
-                <option value="metros">Metros</option>
-                <option value="quilometros">Quilômetros</option>
-                <option value="polegadas">Polegadas</option>
-                <option value="pes">Pés</option>
-                <option value="jardas">Jardas</option>
-                <option value="milhas">Milhas</option>
-                <option value="milhasNautaicas">Milhas Náuticas</option>
-            </select>
+            <select class="select_med" name="unidades de medida" id="medida_input"></select>
             <input class="visor_op" id="visor_op" type="text" value="0" disabled>
-            <select class="select_med" name="unidades de medida" id="medida_input">
-                <option value="nanometros">Nanômetros</option>
-                <option value="microns">Mícrons</option>
-                <option value="milimetros">Milímetros</option>
-                <option value="centimetros">Centímetros</option>
-                <option value="metros">Metros</option>
-                <option value="quilometros">Quilômetros</option>
-                <option value="polegadas">Polegadas</option>
-                <option value="pes">Pés</option>
-                <option value="jardas">Jardas</option>
-                <option value="milhas">Milhas</option>
-                <option value="milhasNautaicas">Milhas Náuticas</option>
-            </select>
+            <select class="select_med" name="unidades de medida" id="medida_output"></select>
         </section>
 
         <section class="botoes_calc_convert">
@@ -96,14 +72,14 @@
             <button data-btn="1" class="btn-value" type="button">1</button>
             <button data-btn="2" class="btn-value" type="button">2</button>
             <button data-btn="3" class="btn-value" type="button">3</button>
-           
+
             <button onclick="btn_ops('.')" class="btn" type="button">.</button>
             <button class="btn-value-d" type="button"></button>
             <button data-btn="0" class="btn-value" type="button">0</button>
             <button class="btn-value-d" type="button"></button>
             <button onclick="btn_ops('=')" class="btn" type="button">=</button>
         </section>
-        
+
     </div>
     <script src="../js/converter_script.js"></script>
 </body>

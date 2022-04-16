@@ -1,127 +1,322 @@
-/*possiveis alteracoes*/
-function CalculadoraF() {
-    var valor = document.getElementById("value_display")
-    var formated_expressao = document.getElementById("visor_op")
-    var internal_expressao = []
-    var memoria = []
-    var estado = 'inicial'
+btn_valeus()
+select_init()
+var conv = new ConverterF()
 
-    //manipulacoes na memoria
-    this.memClear = () => {
-        memoria = []
-        writeMemory()
-    }
-    this.memRemove = (index) => {
-        memoria.splice(index, 1)
-    }
-    this.memRecall = () => {
-        this.clear()
-        if (memoria.length > 0) {
-            valor.setAttribute("value", memoria.concat().pop())
+function ConverterF() {
+    let entrada = document.getElementById("value_display")
+    let saida = document.getElementById("visor_op")
+    let med_input = document.querySelectorAll(".select_med")
+    let option_input = med_input[0].options[med_input[0].selectedIndex].value
+    let option_output = med_input[1].options[med_input[1].selectedIndex].value
+
+    const vol_converter = {
+        'mililitros': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in },
+                'centCubicos': (val_in) => { return val_in },
+                'litros': (val_in) => { return val_in / 1000 },
+                'metCubicos': (val_in) => { return val_in / 1e+6 },
+                'polCubicos': (val_in) => { return val_in / 16.387 },
+                'pesCubicos': (val_in) => { return val_in / 28317 },
+                'jarCubicos': (val_in) => { return val_in / 764555 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'centCubicos': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in },
+                'centCubicos': (val_in) => { return val_in },
+                'litros': (val_in) => { return val_in / 1000 },
+                'metCubicos': (val_in) => { return val_in / 1e+6 },
+                'polCubicos': (val_in) => { return val_in / 16.387 },
+                'pesCubicos': (val_in) => { return val_in / 28317 },
+                'jarCubicos': (val_in) => { return val_in / 764555 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'litros': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in * 1000 },
+                'centCubicos': (val_in) => { return val_in * 1000 },
+                'litros': (val_in) => { return val_in },
+                'metCubicos': (val_in) => { return val_in / 1000 },
+                'polCubicos': (val_in) => { return val_in * 61.024 },
+                'pesCubicos': (val_in) => { return val_in / 28.317 },
+                'jarCubicos': (val_in) => { return val_in / 765 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'metCubicos': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in * 1e+6 },
+                'centCubicos': (val_in) => { return val_in * 1e+6 },
+                'litros': (val_in) => { return val_in * 1000 },
+                'metCubicos': (val_in) => { return val_in },
+                'polCubicos': (val_in) => { return val_in * 61024 },
+                'pesCubicos': (val_in) => { return val_in / 35.315 },
+                'jarCubicos': (val_in) => { return val_in / 1.308 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'polCubicos': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in * 16.387 },
+                'centCubicos': (val_in) => { return val_in * 16.387 },
+                'litros': (val_in) => { return val_in / 61.024 },
+                'metCubicos': (val_in) => { return val_in / 61024 },
+                'polCubicos': (val_in) => { return val_in },
+                'pesCubicos': (val_in) => { return val_in / 1728 },
+                'jarCubicos': (val_in) => { return val_in / 46656 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'pesCubicos': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in * 28317 },
+                'centCubicos': (val_in) => { return val_in * 28317 },
+                'litros': (val_in) => { return val_in * 28.317 },
+                'metCubicos': (val_in) => { return val_in / 35.315 },
+                'polCubicos': (val_in) => { return val_in * 1728 },
+                'pesCubicos': (val_in) => { return val_in },
+                'jarCubicos': (val_in) => { return val_in / 27 }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'jarCubicos': () => {
+            const Conversions = {
+                'mililitros': (val_in) => { return val_in * 764555 },
+                'centCubicos': (val_in) => { return val_in * 764555 },
+                'litros': (val_in) => { return val_in * 765 },
+                'metCubicos': (val_in) => { return val_in / 1.308 },
+                'polCubicos': (val_in) => { return val_in * 46656 },
+                'pesCubicos': (val_in) => { return val_in * 27 },
+                'jarCubicos': (val_in) => { return val_in }
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
         }
-        writeMemory()
     }
-    this.memSave = () => {
-        memoria.push(+this.getValor())
-        writeMemory()
+
+    const len_converter={
+        'nanometros': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in/1000},
+                'milimetros': (val_in) => {return val_in/1e+6},
+                'centimetros': (val_in) => {return val_in/1e+7},
+                'metros': (val_in) => {return val_in/1e+9},
+                'quilometros': (val_in) => {return val_in/1e+12},
+                'polegadas': (val_in) => {return val_in/2.54e+7},
+                'pes': (val_in) => {return val_in/3.2808e+9},
+                'jardas': (val_in) => {return val_in/ 9.144e+8},
+                'milhas': (val_in) => {return val_in/ 1.609e+12}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'microns': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in*1000},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in/1000},
+                'centimetros': (val_in) => {return val_in/10000},
+                'metros': (val_in) => {return val_in/1e+6},
+                'quilometros': (val_in) => {return val_in/1e+9},
+                'polegadas': (val_in) => {return val_in/25400},
+                'pes': (val_in) => {return val_in/304800},
+                'jardas': (val_in) => {return val_in/914400},
+                'milhas': (val_in) => {return val_in/1.609e+9}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'milimetros': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in*1e+6},
+                'microns': (val_in) => {return val_in*1000},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in/10},
+                'metros': (val_in) => {return val_in/1000},
+                'quilometros': (val_in) => {return val_in/1e+6},
+                'polegadas': (val_in) => {return val_in/25.4},
+                'pes': (val_in) => {return val_in/305},
+                'jardas': (val_in) => {return val_in/914},
+                'milhas': (val_in) => {return val_in/1.609e+6}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'centimetros': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'metros': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'quilometros': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'polegadas': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'pes': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'jardas': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
+        'milhas': () => {
+            const Conversions = {
+                'nanometros': (val_in) => {return val_in},
+                'microns': (val_in) => {return val_in},
+                'milimetros': (val_in) => {return val_in},
+                'centimetros': (val_in) => {return val_in},
+                'metros': (val_in) => {return val_in},
+                'quilometros': (val_in) => {return val_in},
+                'polegadas': (val_in) => {return val_in},
+                'pes': (val_in) => {return val_in},
+                'jardas': (val_in) => {return val_in},
+                'milhas': (val_in) => {return val_in}
+            }
+            let conversions = Conversions[option_output]
+            saida.setAttribute("value", conversions(entrada.value))
+        },
     }
-    this.memAdd = () => {
-        memoria[memoria.length - 1] += +this.getValor()
-        writeMemory()
-    }
-    this.memLocateAdd = (index) => {
-        memoria[index] += +this.getValor()
-        writeMemory()
-    }
-    this.memSub = () => {
-        memoria[memoria.length - 1] -= +this.getValor()
-        writeMemory()
-    }
-    this.memLocateSub = (index) => {
-        memoria[index] -= +this.getValor()
-        writeMemory()
-    }
-    //execucao de operacoes
-    this.addToValor = (val) => {
+
+    var estado = 'inicial'
+    this.addToEntrada = (val) => {
         switch (estado) {
             case 'reinicio':
-                valor.setAttribute("value", val)
-                formated_expressao.setAttribute("value", '')
-                internal_expressao = []
+                entrada.setAttribute("value", val)
+                saida.setAttribute("value", '0')
                 break
             case 'inicial':
-                valor.setAttribute("value", val)
+                entrada.setAttribute("value", val)
                 break
             case 'setando':
-                valor.setAttribute("value", this.getValor() + val)
+                entrada.setAttribute("value", entrada.value + val)
                 break
         }
         estado = 'setando'
     }
 
-    this.expressionConcat = (val_output, val_intern) => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
-            formated_expressao.setAttribute("value", this.getFormatedExpressao() + val_output)
-        } else {
-            formated_expressao.setAttribute("value", val_output)
+    this.convert = () => {  
+        this.atualizar_sel()
+        let tipo = document.querySelector("[data-medida]").dataset.medida
+        switch(tipo){
+            case 'dinheiro':
+
+                break
+            case 'volume':
+                vol_converter[option_input]()
+                break
+            case 'comprimento':
+                len_converter[option_input]()
+                break
         }
-        internal_expressao.push(val_intern)
-        estado = 'inicial'
-    }
-
-    this.percentageSet = () => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
-            if (internal_expressao.concat().pop().includes("+")) {
-                this.expressionConcat(this.getValor() / 2, this.getValor() / 2)
-            } else {
-                this.expressionConcat(this.getValor() / 100, this.getValor() / 100)
-            }
-        }
-    }
-
-    this.negation = () => {
-        valor.setAttribute("value", -this.getValor())
-    }
-
-    this.floatingPoint = () => {
-        if (!isNaN(this.getValor()) && this.getValor().match(/[.]/) == null) {
-            valor.setAttribute("value", `${this.getValor()}.`)
-        }
-    }
-
-    this.calculateExpression = () => {
-        valor.setAttribute("value", +eval(internal_expressao.join('')).toFixed(2))
-        internal_expressao = []
         estado = 'reinicio'
     }
 
-    this.equalConcat = () => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
-            formated_expressao.setAttribute("value", this.getFormatedExpressao() + this.getValor())
-        } else {
-            formated_expressao.setAttribute("value", this.getValor())
+    this.floatingPoint = () => {
+        if (!isNaN(entrada.value) && entrada.value.match(/[.]/) == null) {
+            entrada.setAttribute("value", `${entrada.value}.`)
         }
-        internal_expressao.push(this.getValor())
-    }
-
-    this.clear = () => {
-        valor.setAttribute("value", '0')
-        formated_expressao.setAttribute("value", '')
-        internal_expressao = []
-        estado = 'inicial'
     }
 
     this.clearEntry = () => {
-        valor.setAttribute("value", '0')
+        entrada.setAttribute("value", '0')
         estado = 'inicial'
     }
 
     this.delete = () => {
-        if (this.getValor().length > 1) {
-            if (isNaN(this.getValor())) {
-                valor.setAttribute("value", this.getValor().split(/[^0-9]/).join(''))
+        if (entrada.value.length > 1) {
+            if (isNaN(entrada.value)) {
+                entrada.setAttribute("value", entrada.value.split(/[^0-9]/).join(''))
             } else {
-                valor.setAttribute("value", this.getValor().slice(0, -1))
+                entrada.setAttribute("value", entrada.value.slice(0, -1))
             }
             estado = 'setando'
         } else {
@@ -129,50 +324,74 @@ function CalculadoraF() {
         }
     }
 
-    //getters
-    this.getValor = () => {
-        return valor.getAttribute("value")
-    }
-
-    this.getFormatedExpressao = () => {
-        return formated_expressao.getAttribute("value")
-    }
-
-    this.getMemory = () => {
-        return memoria
+    this.atualizar_sel=()=>{
+        med_input = document.querySelectorAll(".select_med")
+        option_input = med_input[0].options[med_input[0].selectedIndex].value
+        option_output = med_input[1].options[med_input[1].selectedIndex].value
     }
 }
-
-var calc = new CalculadoraF()
 
 function btn_valeus() {
     let btn_val = document.querySelectorAll('[data-btn]')
     for (i = 0; i < btn_val.length; i++) {
         btn_val[i].addEventListener("click", event => {
-            calc.addToValor(event.target.dataset.btn)
+            conv.addToEntrada(event.target.dataset.btn)
         })
     }
 }
-btn_valeus()
 
 function btn_ops(operation) {
-    const calc_operations = {
-        'del': () => { calc.delete() },
-        'ce': () => { calc.clearEntry() },
-        '.': () => { calc.floatingPoint() },
-        '=': () => {
-            calc.equalConcat()
-            calc.calculateExpression()
+    const conv_operations = {
+        'del': () => { conv.delete() },
+        'ce': () => { conv.clearEntry() },
+        '.': () => { conv.floatingPoint() },
+        '=': () => { conv.convert() }
+    }
+    let operacao = conv_operations[operation]
+    operacao()
+}
+
+function select_init() {
+    let med_input = document.querySelectorAll(".select_med")
+    let med_tipo = document.querySelector("[data-medida]")
+    const options = {
+        'dinheiro': () => {
+
+        },
+        'volume': () => {
+            const opt = `<option value="mililitros">Mililitros</option>
+            <option value="centCubicos">Centímetros cúbicos</option>
+            <option value="litros">Litros</option>
+            <option value="metCubicos">Metros cúbicos</option>
+            <option value="polCubicos">Polegadas cúbicas</option>
+            <option value="pesCubicos">Pés cúbicos</option>
+            <option value="jarCubicos">Jardas cúbicas</option>`
+            return opt
+        },
+        'comprimento': () => {
+            const opt = `<option value="nanometros">Nanômetros</option>
+            <option value="microns">Mícrons</option>
+            <option value="milimetros">Milímetros</option>
+            <option value="centimetros">Centímetros</option>
+            <option value="metros">Metros</option>
+            <option value="quilometros">Quilômetros</option>
+            <option value="polegadas">Polegadas</option>
+            <option value="pes">Pés</option>
+            <option value="jardas">Jardas</option>
+            <option value="milhas">Milhas</option>`
+            return opt
         }
     }
-    let operacao = calc_operations[operation]
-    operacao()
+    let option = options[med_tipo.dataset.medida]
+    med_input[0].innerHTML = option()
+    med_input[1].innerHTML = option()
 }
 
 //DROPDOWN MENU
 function DropDown() {
     document.getElementById("menuDD").classList.toggle("show")
 }
+
 function DropDownAbout() {
     document.getElementById("aboutDD").classList.toggle("showA")
 }
