@@ -103,163 +103,163 @@ function ConverterF() {
         }
     }
 
-    const len_converter={
+    const len_converter = {
         'nanometros': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in/1000},
-                'milimetros': (val_in) => {return val_in/1e+6},
-                'centimetros': (val_in) => {return val_in/1e+7},
-                'metros': (val_in) => {return val_in/1e+9},
-                'quilometros': (val_in) => {return val_in/1e+12},
-                'polegadas': (val_in) => {return val_in/2.54e+7},
-                'pes': (val_in) => {return val_in/3.2808e+9},
-                'jardas': (val_in) => {return val_in/ 9.144e+8},
-                'milhas': (val_in) => {return val_in/ 1.609e+12}
+                'nanometros': (val_in) => { return val_in },
+                'microns': (val_in) => { return val_in / 1000 },
+                'milimetros': (val_in) => { return val_in / 1e+6 },
+                'centimetros': (val_in) => { return val_in / 1e+7 },
+                'metros': (val_in) => { return val_in / 1e+9 },
+                'quilometros': (val_in) => { return val_in / 1e+12 },
+                'polegadas': (val_in) => { return val_in / 2.54e+7 },
+                'pes': (val_in) => { return val_in / 3.2808e+9 },
+                'jardas': (val_in) => { return val_in / 9.144e+8 },
+                'milhas': (val_in) => { return val_in / 1.609e+12 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'microns': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in*1000},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in/1000},
-                'centimetros': (val_in) => {return val_in/10000},
-                'metros': (val_in) => {return val_in/1e+6},
-                'quilometros': (val_in) => {return val_in/1e+9},
-                'polegadas': (val_in) => {return val_in/25400},
-                'pes': (val_in) => {return val_in/304800},
-                'jardas': (val_in) => {return val_in/914400},
-                'milhas': (val_in) => {return val_in/1.609e+9}
+                'nanometros': (val_in) => { return val_in * 1000 },
+                'microns': (val_in) => { return val_in },
+                'milimetros': (val_in) => { return val_in / 1000 },
+                'centimetros': (val_in) => { return val_in / 10000 },
+                'metros': (val_in) => { return val_in / 1e+6 },
+                'quilometros': (val_in) => { return val_in / 1e+9 },
+                'polegadas': (val_in) => { return val_in / 25400 },
+                'pes': (val_in) => { return val_in / 304800 },
+                'jardas': (val_in) => { return val_in / 914400 },
+                'milhas': (val_in) => { return val_in / 1.609e+9 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'milimetros': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in*1e+6},
-                'microns': (val_in) => {return val_in*1000},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in/10},
-                'metros': (val_in) => {return val_in/1000},
-                'quilometros': (val_in) => {return val_in/1e+6},
-                'polegadas': (val_in) => {return val_in/25.4},
-                'pes': (val_in) => {return val_in/305},
-                'jardas': (val_in) => {return val_in/914},
-                'milhas': (val_in) => {return val_in/1.609e+6}
+                'nanometros': (val_in) => { return val_in * 1e+6 },
+                'microns': (val_in) => { return val_in * 1000 },
+                'milimetros': (val_in) => { return val_in },
+                'centimetros': (val_in) => { return val_in / 10 },
+                'metros': (val_in) => { return val_in / 1000 },
+                'quilometros': (val_in) => { return val_in / 1e+6 },
+                'polegadas': (val_in) => { return val_in / 25.4 },
+                'pes': (val_in) => { return val_in / 305 },
+                'jardas': (val_in) => { return val_in / 914 },
+                'milhas': (val_in) => { return val_in / 1.609e+6 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'centimetros': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 1e+7 },
+                'microns': (val_in) => { return val_in * 10000 },
+                'milimetros': (val_in) => { return val_in * 10 },
+                'centimetros': (val_in) => { return val_in },
+                'metros': (val_in) => { return val_in / 100 },
+                'quilometros': (val_in) => { return val_in / 100000 },
+                'polegadas': (val_in) => { return val_in / 2.54 },
+                'pes': (val_in) => { return val_in / 30.48 },
+                'jardas': (val_in) => { return val_in / 91.44 },
+                'milhas': (val_in) => { return val_in / 160934 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'metros': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 1e+9 },
+                'microns': (val_in) => { return val_in * 1e+6 },
+                'milimetros': (val_in) => { return val_in * 1000 },
+                'centimetros': (val_in) => { return val_in * 100 },
+                'metros': (val_in) => { return val_in },
+                'quilometros': (val_in) => { return val_in / 1000 },
+                'polegadas': (val_in) => { return val_in * 39.37 },
+                'pes': (val_in) => { return val_in * 3.281 },
+                'jardas': (val_in) => { return val_in * 1.094 },
+                'milhas': (val_in) => { return val_in / 1609 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'quilometros': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 1e+12 },
+                'microns': (val_in) => { return val_in * 1e+9 },
+                'milimetros': (val_in) => { return val_in * 1e+6 },
+                'centimetros': (val_in) => { return val_in * 100000 },
+                'metros': (val_in) => { return val_in * 1000 },
+                'quilometros': (val_in) => { return val_in },
+                'polegadas': (val_in) => { return val_in * 39370 },
+                'pes': (val_in) => { return val_in * 3281 },
+                'jardas': (val_in) => { return val_in * 1094 },
+                'milhas': (val_in) => { return val_in / 1, 609 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'polegadas': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 2.54e+7 },
+                'microns': (val_in) => { return val_in * 25400 },
+                'milimetros': (val_in) => { return val_in * 25.4 },
+                'centimetros': (val_in) => { return val_in * 2.54 },
+                'metros': (val_in) => { return val_in * 39.37 },
+                'quilometros': (val_in) => { return val_in / 39370 },
+                'polegadas': (val_in) => { return val_in },
+                'pes': (val_in) => { return val_in / 12 },
+                'jardas': (val_in) => { return val_in / 36 },
+                'milhas': (val_in) => { return val_in / 63360 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'pes': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 3.048e+8 },
+                'microns': (val_in) => { return val_in * 304800 },
+                'milimetros': (val_in) => { return val_in * 305 },
+                'centimetros': (val_in) => { return val_in * 30.48 },
+                'metros': (val_in) => { return val_in / 3.281 },
+                'quilometros': (val_in) => { return val_in / 3281 },
+                'polegadas': (val_in) => { return val_in * 12 },
+                'pes': (val_in) => { return val_in },
+                'jardas': (val_in) => { return val_in / 3 },
+                'milhas': (val_in) => { return val_in / 5280 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'jardas': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 9.144e+8 },
+                'microns': (val_in) => { return val_in * 914400 },
+                'milimetros': (val_in) => { return val_in * 914 },
+                'centimetros': (val_in) => { return val_in * 91.44 },
+                'metros': (val_in) => { return val_in / 1.094 },
+                'quilometros': (val_in) => { return val_in / 1094 },
+                'polegadas': (val_in) => { return val_in * 36 },
+                'pes': (val_in) => { return val_in / 12 },
+                'jardas': (val_in) => { return val_in },
+                'milhas': (val_in) => { return val_in / 1760 }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
         },
         'milhas': () => {
             const Conversions = {
-                'nanometros': (val_in) => {return val_in},
-                'microns': (val_in) => {return val_in},
-                'milimetros': (val_in) => {return val_in},
-                'centimetros': (val_in) => {return val_in},
-                'metros': (val_in) => {return val_in},
-                'quilometros': (val_in) => {return val_in},
-                'polegadas': (val_in) => {return val_in},
-                'pes': (val_in) => {return val_in},
-                'jardas': (val_in) => {return val_in},
-                'milhas': (val_in) => {return val_in}
+                'nanometros': (val_in) => { return val_in * 1.609e+12 },
+                'microns': (val_in) => { return val_in * 1.609e+9 },
+                'milimetros': (val_in) => { return val_in * 1.609e+6 },
+                'centimetros': (val_in) => { return val_in * 160934 },
+                'metros': (val_in) => { return val_in * 1609 },
+                'quilometros': (val_in) => { return val_in * 1.609 },
+                'polegadas': (val_in) => { return val_in * 63360 },
+                'pes': (val_in) => { return val_in * 5280 },
+                'jardas': (val_in) => { return val_in * 1760 },
+                'milhas': (val_in) => { return val_in }
             }
             let conversions = Conversions[option_output]
             saida.setAttribute("value", conversions(entrada.value))
@@ -283,10 +283,10 @@ function ConverterF() {
         estado = 'setando'
     }
 
-    this.convert = () => {  
+    this.convert = () => {
         this.atualizar_sel()
         let tipo = document.querySelector("[data-medida]").dataset.medida
-        switch(tipo){
+        switch (tipo) {
             case 'dinheiro':
 
                 break
@@ -324,7 +324,7 @@ function ConverterF() {
         }
     }
 
-    this.atualizar_sel=()=>{
+    this.atualizar_sel = () => {
         med_input = document.querySelectorAll(".select_med")
         option_input = med_input[0].options[med_input[0].selectedIndex].value
         option_output = med_input[1].options[med_input[1].selectedIndex].value
@@ -383,8 +383,12 @@ function select_init() {
         }
     }
     let option = options[med_tipo.dataset.medida]
-    med_input[0].innerHTML = option()
-    med_input[1].innerHTML = option()
+    for (i = 0; i < med_input.length; i++) {
+        med_input[i].innerHTML = option()
+        med_input[i].addEventListener("click", () => {
+            conv.convert()
+        })
+    }
 }
 
 //DROPDOWN MENU
