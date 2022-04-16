@@ -1,11 +1,13 @@
-/*possiveis alteracoes*/
+btn_values()
+btn_basic_ops()
+var calc = new CalculadoraF()
+
 function CalculadoraF() {
     var valor = document.getElementById("value_display")
     var formated_expressao = document.getElementById("visor_op")
     var internal_expressao = []
     var memoria = []
-    var estado = 'inicial'
-
+    
     //manipulacoes na memoria
     this.memClear = () => {
         memoria = []
@@ -22,26 +24,27 @@ function CalculadoraF() {
         writeMemory()
     }
     this.memSave = () => {
-        memoria.push(+this.getValor())
+        memoria.push(valor.value)
         writeMemory()
     }
     this.memAdd = () => {
-        memoria[memoria.length - 1] += +this.getValor()
+        memoria[memoria.length - 1] += valor.value
         writeMemory()
     }
     this.memLocateAdd = (index) => {
-        memoria[index] += +this.getValor()
+        memoria[index] += valor.value
         writeMemory()
     }
     this.memSub = () => {
-        memoria[memoria.length - 1] -= +this.getValor()
+        memoria[memoria.length - 1] -= valor.value
         writeMemory()
     }
     this.memLocateSub = (index) => {
-        memoria[index] -= +this.getValor()
+        memoria[index] -= valor.value
         writeMemory()
     }
-    //execucao de operacoes
+    
+    var estado = 'inicial'
     this.addToValor = (val) => {
         switch (estado) {
             case 'reinicio':
@@ -53,15 +56,15 @@ function CalculadoraF() {
                 valor.setAttribute("value", val)
                 break
             case 'setando':
-                valor.setAttribute("value", this.getValor() + val)
+                valor.setAttribute("value", valor.value + val)
                 break
         }
         estado = 'setando'
     }
 
     this.expressionConcat = (val_output, val_intern) => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
-            formated_expressao.setAttribute("value", this.getFormatedExpressao() + val_output)
+        if (formated_expressao.value && estado != 'reinicio') {
+            formated_expressao.setAttribute("value", formated_expressao.value + val_output)
         } else {
             formated_expressao.setAttribute("value", val_output)
         }
@@ -70,22 +73,22 @@ function CalculadoraF() {
     }
 
     this.percentageSet = () => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
+        if (formated_expressao.value && estado != 'reinicio') {
             if (internal_expressao.concat().pop().includes("+")) {
-                this.expressionConcat(this.getValor() / 2, this.getValor() / 2)
+                this.expressionConcat(valor.value / 2, valor.value / 2)
             } else {
-                this.expressionConcat(this.getValor() / 100, this.getValor() / 100)
+                this.expressionConcat(valor.value / 100, valor.value / 100)
             }
         }
     }
 
     this.negation = () => {
-        valor.setAttribute("value", -this.getValor())
+        valor.setAttribute("value", -valor.value)
     }
 
     this.floatingPoint = () => {
-        if (!isNaN(this.getValor()) && this.getValor().match(/[.]/) == null) {
-            valor.setAttribute("value", `${this.getValor()}.`)
+        if (!isNaN(valor.value) && valor.value.match(/[.]/) == null) {
+            valor.setAttribute("value", `${valor.value}.`)
         }
     }
 
@@ -96,12 +99,12 @@ function CalculadoraF() {
     }
 
     this.equalConcat = () => {
-        if (this.getFormatedExpressao() && estado != 'reinicio') {
-            formated_expressao.setAttribute("value", this.getFormatedExpressao() + this.getValor())
+        if (formated_expressao.value && estado != 'reinicio') {
+            formated_expressao.setAttribute("value", formated_expressao.value + valor.value)
         } else {
-            formated_expressao.setAttribute("value", this.getValor())
+            formated_expressao.setAttribute("value", valor.value)
         }
-        internal_expressao.push(this.getValor())
+        internal_expressao.push(valor.value)
     }
 
     this.clear = () => {
@@ -117,35 +120,29 @@ function CalculadoraF() {
     }
 
     this.delete = () => {
-        if (this.getValor().length > 1) {
-            if (isNaN(this.getValor())) {
-                valor.setAttribute("value", this.getValor().split(/[^0-9]/).join(''))
+        if (valor.value.length > 1) {
+            if (isNaN(valor.value)) {
+                valor.setAttribute("value", valor.value.split(/[^0-9]/).join(''))
             } else {
-                valor.setAttribute("value", this.getValor().slice(0, -1))
+                valor.setAttribute("value", valor.value.slice(0, -1))
             }
             estado = 'setando'
         } else {
             this.clearEntry()
         }
     }
-
-    //getters
-    this.getValor = () => {
-        return valor.getAttribute("value")
-    }
-
     this.getFormatedExpressao = () => {
         return formated_expressao.getAttribute("value")
     }
-
+    this.getValor = () => {
+        return valor.getAttribute("value")
+    }
     this.getMemory = () => {
         return memoria
     }
 }
 
-var calc = new CalculadoraF()
-
-function btn_valeus() {
+function btn_values() {
     let btn_val = document.querySelectorAll('[data-btn]')
     for (i = 0; i < btn_val.length; i++) {
         btn_val[i].addEventListener("click", event => {
@@ -153,7 +150,7 @@ function btn_valeus() {
         })
     }
 }
-btn_valeus()
+
 function btn_basic_ops() {
     let btn_op = document.querySelectorAll('[data-op]')
     for (i = 0; i < btn_op.length; i++) {
@@ -162,7 +159,7 @@ function btn_basic_ops() {
         })
     }
 }
-btn_basic_ops()
+
 function btn_ops(operation) {
     const calc_operations = {
         'c': () => { calc.clear() },

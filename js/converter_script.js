@@ -1,4 +1,4 @@
-btn_valeus()
+btn_values()
 select_init()
 var conv = new ConverterF()
 
@@ -331,7 +331,7 @@ function ConverterF() {
     }
 }
 
-function btn_valeus() {
+function btn_values() {
     let btn_val = document.querySelectorAll('[data-btn]')
     for (i = 0; i < btn_val.length; i++) {
         btn_val[i].addEventListener("click", event => {
