@@ -1,7 +1,7 @@
 const convertionType = document.body.dataset.convertionType
 let internalExchangeRates = {}
 let conv 
-const url = 'https://v6.exchangerate-api.com/v6/2ca809d970b148ccbac1abff/latest/USD'
+const getUrl = (endpoint)=>{return `https://v6.exchangerate-api.com/v6/2ca809d970b148ccbac1abff/latest/${endpoint}`}
 
 const getErrorMessage = errorType => ({
     'unsupported-code': 'Código de moeda fornecido não é suportado.',
@@ -11,7 +11,7 @@ const getErrorMessage = errorType => ({
     'quota-reached': 'Numero de requisições do plano atual atingidas.'
 })[errorType] || 'Não foi possivel obter as informações de erro.'
 
-const fecthExchangeRates = async () => {
+const fecthExchangeRates = async url => {
     try {
         const response = await fetch(url)
 
@@ -66,12 +66,12 @@ const select_init = async () => {
     }
 
     if (convertionType === 'moeda') {
-        let exchangeRateData = await fecthExchangeRates()
+        let exchangeRateData = await fecthExchangeRates(getUrl('USD'))
         internalExchangeRates = { ...exchangeRateData }
 
         let getOptions = options[convertionType]
-        selectMedidaEl[0].innerHTML = getOptions('BRL')
-        selectMedidaEl[1].innerHTML = getOptions('USD')
+        selectMedidaEl[0].innerHTML = getOptions('USD')
+        selectMedidaEl[1].innerHTML = getOptions('BRL')
     }else{
         let option = options[convertionType]()
         selectMedidaEl[0].innerHTML = option
@@ -85,12 +85,22 @@ const initialization= async ()=>{
     conv= new Converter()
 
     let selectMedidaEl = document.querySelectorAll(".select_med")
-    selectMedidaEl[0].addEventListener('click', () => {
-        conv.convert()
-    })
-    selectMedidaEl[1].addEventListener('click', () => {
-        conv.convert()
-    })
+    if(convertionType === 'moeda'){
+        selectMedidaEl[0].addEventListener('input', e => {
+           conv.getNewCurrencyRates(e.target.value)
+           conv.currencyConverter()
+        })
+        selectMedidaEl[1].addEventListener('input', e => {
+            conv.currencyConverterByInputEvent(internalExchangeRates.conversion_rates[e.target.value])
+        })
+    }else{
+        selectMedidaEl[0].addEventListener('input', () => {
+            conv.convert()
+        })
+        selectMedidaEl[1].addEventListener('input', () => {
+            conv.convert()
+        })
+    }
 
     btn_values_init()
 }
@@ -363,7 +373,22 @@ function Converter(){
             saida.setAttribute("value", conversions(entrada.value))
         },
     }
+    //metodos referentes ao converter de currency
+    this.currencyConverter= ()=>{
+        let converted= (entrada.value * internalExchangeRates.conversion_rates[option_output])
+        saida.setAttribute("value", converted.toFixed(2))
+    }
     
+    this.currencyConverterByInputEvent= (currency)=>{
+        let converted= (entrada.value * currency)
+        saida.setAttribute("value", converted.toFixed(2))
+    }
+    
+    this.getNewCurrencyRates= async(endpoint)=>{
+        let exchangeRateData = await fecthExchangeRates(getUrl(endpoint))
+        internalExchangeRates = { ...exchangeRateData }
+    }
+
     var estado = 'inicial'
     this.addToEntrada = (val) => {
         switch (estado) {
@@ -385,7 +410,7 @@ function Converter(){
         this.atualizar_sel()
         switch (convertionType) {
             case 'moeda':
-
+                this.currencyConverter()
                 break
             case 'volume':
                 vol_converter[option_input]()
