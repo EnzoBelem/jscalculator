@@ -15,9 +15,6 @@ const fecthExchangeRates = async url => {
     try {
         const response = await fetch(url)
 
-        /*  if (!response.ok) {
-             throw new Error('Sua conexão falhou. Não foi possivel estabelecer uma conexão com os servidores.')
-         } */
         const exchangeRates = await response.json()
 
         if (exchangeRates.result === 'error') {
