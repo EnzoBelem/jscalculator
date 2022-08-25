@@ -1,5 +1,5 @@
 //importando a chave da api 
-const api_key= key.APIKEY
+//const api_key= key.APIKEY
 
 //cada body possui um dataset com o tipo de conversao daquela pagina
 const convertionType = document.body.dataset.convertionType
