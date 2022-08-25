@@ -26,6 +26,12 @@ button:active, a:active{
     background: rgb(102, 102, 102);
 }
 
+/*Links desativados*/
+a[href="#"]{
+    cursor: default;
+    color: rgb(139, 139, 139);
+}
+
 /*CONTAINER PRINCIPAL DA CALCULADORA - questao de width e height seram ajustadas futuramente*/
 #corpo_calc{
     width: 400px;

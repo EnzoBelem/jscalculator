@@ -7,15 +7,18 @@ function CalculadoraF() {
     var formated_expressao = document.getElementById("visor_op")
     var internal_expressao = []
     var memoria = []
-    
-    //manipulacoes na memoria
+
+    //MANIPULACOES NA MEMORIA
+
     this.memClear = () => {
         memoria = []
         writeMemory()
     }
+
     this.memRemove = (index) => {
         memoria.splice(index, 1)
     }
+
     this.memRecall = () => {
         this.clear()
         if (memoria.length > 0) {
@@ -23,27 +26,42 @@ function CalculadoraF() {
         }
         writeMemory()
     }
+
     this.memSave = () => {
-        memoria.push(valor.value)
+        //elementos salvos na mem sao convertidos de string em float antes de salvar na memoria
+        memoria.push(parseFloat(valor.value))
         writeMemory()
     }
+
+    //OPERACOES NA MEMORIA
+    //valor.value vem como string do elemento html, convercao valor.value para float -> operacao na memoria -> toFixed -> conversao para float
+
+    //OPERACOES DE ADICAO NA MEMORIA
     this.memAdd = () => {
-        memoria[memoria.length - 1] += valor.value
+        let op_pacial= parseFloat(parseFloat(memoria[memoria.length - 1] += parseFloat(valor.value)).toFixed(2))
+        memoria[memoria.length - 1]= op_pacial
         writeMemory()
     }
+
     this.memLocateAdd = (index) => {
-        memoria[index] += valor.value
+        let op_pacial= parseFloat(parseFloat(memoria[index] += parseFloat(valor.value)).toFixed(2))
+        memoria[index]= op_pacial
         writeMemory()
     }
+
+    //OPERACOES DE SUBTRACAO NA MEMORIA
     this.memSub = () => {
-        memoria[memoria.length - 1] -= valor.value
+        let op_pacial= parseFloat(parseFloat(memoria[memoria.length - 1] -= parseFloat(valor.value)).toFixed(2))
+        memoria[memoria.length - 1]= op_pacial
         writeMemory()
     }
+
     this.memLocateSub = (index) => {
-        memoria[index] -= valor.value
+        let op_pacial= parseFloat(parseFloat(memoria[index] -= parseFloat(valor.value)).toFixed(2))
+        memoria[index]= op_pacial
         writeMemory()
     }
-    
+
     var estado = 'inicial'
     this.addToValor = (val) => {
         switch (estado) {

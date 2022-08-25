@@ -1,7 +1,11 @@
+//cada body possui um dataset com o tipo de conversao daquela pagina
 const convertionType = document.body.dataset.convertionType
+
 let internalExchangeRates = {}
-let conv 
-const getUrl = (endpoint)=>{return `https://v6.exchangerate-api.com/v6/2ca809d970b148ccbac1abff/latest/${endpoint}`}
+
+let conv
+
+const getUrl = (endpoint) => { return `https://v6.exchangerate-api.com/v6/2ca809d970b148ccbac1abff/latest/${endpoint}` }
 
 const getErrorMessage = errorType => ({
     'unsupported-code': 'Código de moeda fornecido não é suportado.',
@@ -11,6 +15,7 @@ const getErrorMessage = errorType => ({
     'quota-reached': 'Numero de requisições do plano atual atingidas.'
 })[errorType] || 'Não foi possivel obter as informações de erro.'
 
+//funcao responsavel pela requisicao a API 
 const fecthExchangeRates = async url => {
     try {
         const response = await fetch(url)
@@ -35,7 +40,7 @@ const select_init = async () => {
             let opt = `<option> </option>`
             if (internalExchangeRates.result === 'success') {
                 opt = Object.keys(internalExchangeRates.conversion_rates)
-                .map(currency => `<option ${currency === selectedCurrency?'selected':''}>${currency}</option>`).join('')
+                    .map(currency => `<option ${currency === selectedCurrency ? 'selected' : ''}>${currency}</option>`).join('')
             }
             return opt
         },
@@ -69,28 +74,28 @@ const select_init = async () => {
         let getOptions = options[convertionType]
         selectMedidaEl[0].innerHTML = getOptions('USD')
         selectMedidaEl[1].innerHTML = getOptions('BRL')
-    }else{
+    } else {
         let option = options[convertionType]()
         selectMedidaEl[0].innerHTML = option
         selectMedidaEl[1].innerHTML = option
     }
 }
 
-const initialization= async ()=>{
+const initialization = async () => {
     await select_init()
-    
-    conv= new Converter()
+
+    conv = new Converter()
 
     let selectMedidaEl = document.querySelectorAll(".select_med")
-    if(convertionType === 'moeda'){
+    if (convertionType === 'moeda') {
         selectMedidaEl[0].addEventListener('input', e => {
-           conv.getNewCurrencyRates(e.target.value)
-           conv.currencyConverter()
+            conv.getNewCurrencyRates(e.target.value)
+            conv.currencyConverter()
         })
         selectMedidaEl[1].addEventListener('input', e => {
             conv.currencyConverterByInputEvent(internalExchangeRates.conversion_rates[e.target.value])
         })
-    }else{
+    } else {
         selectMedidaEl[0].addEventListener('input', () => {
             conv.convert()
         })
@@ -104,15 +109,15 @@ const initialization= async ()=>{
 
 initialization()
 
-function Converter(){
+function Converter() {
 
     let entrada = document.getElementById("value_display")
     let saida = document.getElementById("visor_op")
 
     let selectMedidaEl = document.querySelectorAll(".select_med")
 
-    let option_input= selectMedidaEl[0].options[selectMedidaEl[0].selectedIndex].value
-    let option_output= selectMedidaEl[1].options[selectMedidaEl[1].selectedIndex].value
+    let option_input = selectMedidaEl[0].options[selectMedidaEl[0].selectedIndex].value
+    let option_output = selectMedidaEl[1].options[selectMedidaEl[1].selectedIndex].value
 
     const vol_converter = {
         'Mililitros': () => {
@@ -371,17 +376,17 @@ function Converter(){
         },
     }
     //metodos referentes ao converter de currency
-    this.currencyConverter= ()=>{
-        let converted= (entrada.value * internalExchangeRates.conversion_rates[option_output])
+    this.currencyConverter = () => {
+        let converted = (entrada.value * internalExchangeRates.conversion_rates[option_output])
         saida.setAttribute("value", converted.toFixed(2))
     }
-    
-    this.currencyConverterByInputEvent= (currency)=>{
-        let converted= (entrada.value * currency)
+
+    this.currencyConverterByInputEvent = (currency) => {
+        let converted = (entrada.value * currency)
         saida.setAttribute("value", converted.toFixed(2))
     }
-    
-    this.getNewCurrencyRates= async(endpoint)=>{
+
+    this.getNewCurrencyRates = async (endpoint) => {
         let exchangeRateData = await fecthExchangeRates(getUrl(endpoint))
         internalExchangeRates = { ...exchangeRateData }
     }
@@ -448,12 +453,12 @@ function Converter(){
         option_input = selectMedidaEl[0].options[selectMedidaEl[0].selectedIndex].value
         option_output = selectMedidaEl[1].options[selectMedidaEl[1].selectedIndex].value
     }
-} 
+}
 
 //metodos inputs externos a funcao de conversoes
 function btn_values_init() {
     let btn_val = document.querySelectorAll('[data-btn]')
-    for (i = 0; i < btn_val.length; i++) {
+    for (let i = 0; i < btn_val.length; i++) {
         btn_val[i].addEventListener("click", event => {
             conv.addToEntrada(event.target.dataset.btn)
         })
@@ -469,7 +474,7 @@ function btn_ops(operation) {
     }
     let operacao = conv_operations[operation]
     operacao()
-} 
+}
 
 //DROPDOWN MENU
 function DropDown() {
