@@ -1,8 +1,4 @@
 # CalculadoraJS
-
-> ### Confira o projeto:
-> [https://enzobelem.github.io/CalculadoraJS/](https://enzobelem.github.io/jscalculator/)
-
 ## Sobre o projeto
 Implementação de uma calculadora simples usando JavaScript puro. O projeto teve como intuito a pratica de conceitos básicos da linguagem, sendo alguns deles:
 > ## Conceitos desenvolvidos:
